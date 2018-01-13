@@ -1,0 +1,15 @@
+#sign-in-form {
+  color: black;
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 40px;
+  padding: 30px;
+}
+
+#sign-in-form h2 {
+  margin-bottom: 20px;
+}
+
+#sign-in-form input {
+  border-color: #7c8c9c;
+}

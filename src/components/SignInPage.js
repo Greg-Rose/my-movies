@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './SignInPage.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import authApi from '../api/authApi';
 
@@ -37,18 +38,17 @@ class SignInPage extends Component {
     return (
       <div className="row justify-content-center">
         <div className="col col-sm-8 col-lg-4">
-          <Form onSubmit={this.onSubmit}>
+          <Form id="sign-in-form" onSubmit={this.onSubmit}>
+            <h2 className="text-center">Sign In</h2>
             <FormGroup>
-              <Label for="email">Email</Label>
-              <Input type="email" name="email" id="email" onChange={this.onChange} />
+              <Input type="email" name="email" id="email" placeholder="Email" onChange={this.onChange} />
             </FormGroup>
 
             <FormGroup>
-              <Label for="password">Password</Label>
-              <Input type="password" name="password" id="password" onChange={this.onChange} />
+              <Input type="password" name="password" id="password" placeholder="Password" onChange={this.onChange} />
             </FormGroup>
 
-            <Button>Sign In</Button>
+            <Button block>Sign In</Button>
           </Form>
         </div>
       </div>
