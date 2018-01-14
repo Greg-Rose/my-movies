@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './SignInPage.css';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Input } from 'reactstrap';
 import authApi from '../api/authApi';
 
 class SignInPage extends Component {

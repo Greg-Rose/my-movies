@@ -10,7 +10,7 @@ class NoMatch extends Component {
         this.props.history.replace('/sign_in');
       }
       else {
-        this.props.history.replace('/discover');
+        this.props.history.replace('/my_movies');
       }
     }
     else {

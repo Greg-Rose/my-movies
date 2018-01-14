@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import {
   Navbar,
   Nav,
-  NavItem,
-  NavLink } from 'reactstrap';
+  NavItem } from 'reactstrap';
 import authApi from '../api/authApi';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import './NavBar.css';
 
 class NavBar extends Component {
   handleSignOut(){
@@ -15,23 +15,21 @@ class NavBar extends Component {
 
   render() {
     return (
-      <div>
-        <Navbar color="faded" dark expand="md">
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <Link to="/discover" className="nav-link">Discover</Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/watched" className="nav-link">Watched</Link>
-            </NavItem>
-          </Nav>
-          <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink onClick={this.handleSignOut.bind(this)}>Sign Out</NavLink>
-            </NavItem>
-          </Nav>
-        </Navbar>
-      </div>
+      <Navbar color="faded" dark expand="xs">
+        <Nav className="mr-auto" navbar>
+          <NavItem>
+            <NavLink to="/discover" className="nav-link">Discover</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/my_movies" className="nav-link">My Movies</NavLink>
+          </NavItem>
+        </Nav>
+        <Nav className="ml-auto" navbar>
+          <NavItem>
+            <a className="nav-link" id="sign-out-link" onClick={this.handleSignOut.bind(this)}>Sign Out</a>
+          </NavItem>
+        </Nav>
+      </Navbar>
     );
   }
 }

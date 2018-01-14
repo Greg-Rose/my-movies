@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import Discover from './Discover';
 import withAuth from './withAuth';
 import NoMatch from './NoMatch';
-import WatchedMoviesList from './WatchedMoviesList';
+import MyMovies from './MyMovies';
 
 class App extends Component {
   render() {
@@ -14,7 +14,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/sign_in" component={SignInPage} />
           <Route exact path='/discover' component={Discover} />
-          <Route exact path='/watched' component={WatchedMoviesList} />
+          <Route path='/my_movies' component={MyMovies} />
           <Route component={NoMatch} />
         </Switch>
       </div>

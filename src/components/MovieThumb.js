@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './MovieThumb.css';
-import { Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button } from 'reactstrap';
+import { Card, CardImg } from 'reactstrap';
 
 class MovieThumb extends Component {
   render() {
