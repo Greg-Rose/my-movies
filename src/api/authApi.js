@@ -6,7 +6,33 @@ class AuthApi {
       fetch('http://localhost:3000/sign_in', {
         method: 'post',
         headers: new Headers({
-        'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(credentials)
+      })
+        .then(response => {
+          if (response.ok) {
+            return response;
+          } else {
+            let errorMessage = `${response.status} (${response.statusText})`,
+                error = new Error(errorMessage);
+            throw(error);
+          }
+        })
+        .then(response => response.json())
+        .then(response => {
+          this.setToken(response.auth_token);
+          return Promise.resolve(response);
+        })
+    );
+  }
+
+  static signUp(credentials) {
+    return (
+      fetch('http://localhost:3000/sign_up', {
+        method: 'post',
+        headers: new Headers({
+          'Content-Type': 'application/json'
         }),
         body: JSON.stringify(credentials)
       })
