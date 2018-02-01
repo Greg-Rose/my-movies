@@ -7,6 +7,7 @@ import Discover from './Discover';
 import withAuth from './withAuth';
 import NoMatch from './NoMatch';
 import MyMovies from './MyMovies';
+import Movie from './Movie';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
           <Route exact path="/sign_in" component={SignInPage} />
           <Route exact path="/sign_up" component={SignUpPage} />
           <Route exact path='/discover' component={Discover} />
+          <Route path='/movie' component={Movie} />
           <Route path='/my_movies' component={MyMovies} />
           <Route component={NoMatch} />
         </Switch>
