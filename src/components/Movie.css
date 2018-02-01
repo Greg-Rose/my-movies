@@ -1,0 +1,15 @@
+#movie-div h2 {
+  margin-top: 20px;
+}
+
+#movie-btns-div {
+  margin-bottom: 20px;
+}
+
+#movie-div .fa-plus {
+  color: green;
+}
+
+#movie-div .fa-times {
+  color: red;
+}

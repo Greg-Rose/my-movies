@@ -1,0 +1,6 @@
+.card.movie-card {
+  border: none;
+  box-shadow: 3px 3px 5px #1a1a1a;
+  margin-bottom: 30px;
+  max-width: 156px;
+}
