@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
+import GetMyMovies from './GetMyMovies';
 
 class ToWatch extends Component {
-
   render() {
     return (
-      <div className="col-12">
-        <h1 className="text-center">To Watch</h1>
-      </div>
+      <GetMyMovies path="my_movies_to_watch" />
     );
   }
 }

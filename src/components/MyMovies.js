@@ -8,16 +8,18 @@ import './MyMovies.css';
 class MyMovies extends Component {
   render() {
     return (
-      <div className="row">
-        <div className="col-12" id="my-movies-nav-div">
-          <Nav tabs horizontal="center">
-            <NavItem>
-              <NavLink to="/my_movies/to_watch" className="nav-link my-movies-nav">To Watch</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/my_movies/watched" className="nav-link my-movies-nav">Watched</NavLink>
-            </NavItem>
-          </Nav>
+      <div>
+        <div className="row">
+          <div className="col-12" id="my-movies-nav-div">
+            <Nav tabs horizontal="center">
+              <NavItem>
+                <NavLink to="/my_movies/to_watch" className="nav-link my-movies-nav">To Watch</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/my_movies/watched" className="nav-link my-movies-nav">Watched</NavLink>
+              </NavItem>
+            </Nav>
+          </div>
         </div>
         <Switch>
           <Route exact path="/my_movies/to_watch" component={ToWatch} />
