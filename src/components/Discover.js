@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Discover.css';
 import authApi from '../api/authApi';
 import MovieThumb from './MovieThumb';
+import { API_ROOT } from '../api/apiConfig';
 
 class Discover extends Component {
   constructor() {
@@ -12,7 +13,7 @@ class Discover extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/movies/discover', {
+    fetch(API_ROOT + '/movies/discover', {
       headers: new Headers({
       'Authorization': authApi.getToken(),
       'Content-Type': 'application/json'

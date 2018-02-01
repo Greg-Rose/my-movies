@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Movie.css';
 import authApi from '../api/authApi';
+import { API_ROOT } from '../api/apiConfig';
 
 class Movie extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Movie extends Component {
       this.props.history.replace('/');
     }
     else {
-      fetch('http://localhost:3000/movies/find/' + this.props.location.state.id, {
+      fetch(API_ROOT + '/movies/find/' + this.props.location.state.id, {
         headers: new Headers({
           'Authorization': authApi.getToken(),
           'Content-Type': 'application/json'
@@ -57,7 +58,7 @@ class Movie extends Component {
         to_watch: toWatch
       };
 
-      fetch('http://localhost:3000/my_movies', {
+      fetch(API_ROOT + '/my_movies', {
         method: 'post',
         headers: new Headers({
           'Authorization': authApi.getToken(),
@@ -90,7 +91,7 @@ class Movie extends Component {
         to_watch: toWatch
       };
 
-      fetch('http://localhost:3000/my_movies/' + this.state.my_movie_id, {
+      fetch(API_ROOT + '/my_movies/' + this.state.my_movie_id, {
         method: 'put',
         headers: new Headers({
           'Authorization': authApi.getToken(),

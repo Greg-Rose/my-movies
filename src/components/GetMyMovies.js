@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import authApi from '../api/authApi';
 import MovieThumb from './MovieThumb';
+import { API_ROOT } from '../api/apiConfig';
 
 class GetMyMovies extends Component {
   constructor() {
@@ -11,7 +12,7 @@ class GetMyMovies extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/' + this.props.path, {
+    fetch(API_ROOT + '/' + this.props.path, {
       headers: new Headers({
         'Authorization': authApi.getToken(),
         'Content-Type': 'application/json'

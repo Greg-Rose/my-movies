@@ -1,9 +1,10 @@
 import decode from 'jwt-decode';
+import { API_ROOT } from './apiConfig';
 
 class AuthApi {
   static signIn(credentials) {
     return (
-      fetch('http://localhost:3000/sign_in', {
+      fetch(API_ROOT + '/sign_in', {
         method: 'post',
         headers: new Headers({
           'Content-Type': 'application/json'
@@ -29,7 +30,7 @@ class AuthApi {
 
   static signUp(credentials) {
     return (
-      fetch('http://localhost:3000/sign_up', {
+      fetch(API_ROOT + '/sign_up', {
         method: 'post',
         headers: new Headers({
           'Content-Type': 'application/json'
