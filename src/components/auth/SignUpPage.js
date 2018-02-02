@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './SignInPage.css';
 import { Button, Form, FormGroup, Input } from 'reactstrap';
-import authApi from '../api/authApi';
+import authApi from '../../api/authApi';
 import { NavLink } from 'react-router-dom';
 
 

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import SignInPage from './SignInPage';
-import SignUpPage from './SignUpPage';
+import SignInPage from './auth/SignInPage';
+import SignUpPage from './auth/SignUpPage';
 import { Route, Switch } from 'react-router-dom';
-import Discover from './Discover';
-import withAuth from './withAuth';
-import NoMatch from './NoMatch';
-import MyMovies from './MyMovies';
-import Movie from './Movie';
+import Discover from './browse/Discover';
+import withAuth from './auth/withAuth';
+import NoMatch from './auth/NoMatch';
+import MyMovies from './user/MyMovies';
+import Movie from './movie/Movie';
 
 class App extends Component {
   render() {

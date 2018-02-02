@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import authApi from '../api/authApi';
+import authApi from '../../api/authApi';
 
 class NoMatch extends Component {
   componentWillMount() {

@@ -3,7 +3,7 @@ import {
   Navbar,
   Nav,
   NavItem } from 'reactstrap';
-import authApi from '../api/authApi';
+import authApi from '../../api/authApi';
 import { NavLink } from 'react-router-dom';
 import './NavBar.css';
 

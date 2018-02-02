@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import authApi from '../api/authApi';
-import MovieThumb from './MovieThumb';
-import { API_ROOT } from '../api/apiConfig';
+import './Discover.css';
+import authApi from '../../api/authApi';
+import MovieThumb from '../movie/MovieThumb';
+import { API_ROOT } from '../../api/apiConfig';
 
-class GetMyMovies extends Component {
+class Discover extends Component {
   constructor() {
     super();
     this.state = {
@@ -12,10 +13,10 @@ class GetMyMovies extends Component {
   }
 
   componentDidMount() {
-    fetch(API_ROOT + '/' + this.props.path, {
+    fetch(API_ROOT + '/movies/discover', {
       headers: new Headers({
-        'Authorization': authApi.getToken(),
-        'Content-Type': 'application/json'
+      'Authorization': authApi.getToken(),
+      'Content-Type': 'application/json'
       })
     })
       .then(response => {
@@ -30,7 +31,9 @@ class GetMyMovies extends Component {
       .then(response => response.json())
       .then(response => {
         this.setState({
-          movies: response
+          page: response.page,
+          movies: response.results,
+          totalPages: response.total_pages
         });
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -42,17 +45,28 @@ class GetMyMovies extends Component {
         <MovieThumb
           key={movieData.id}
           data={movieData}
-          tmdbId={movieData.tmdb_id}
+          tmdbId={movieData.id}
         />
       )
     })
 
+    if (movies.length === 0) {
+      movies = (
+        <div className="col">
+          <i className="fa fa-spinner" aria-hidden="true"></i>
+        </div>
+      )
+    }
+
     return (
-      <div className="row">
+      <div className="row text-center">
+        <div className="col-12">
+          <h1 id="discover-title">Discover</h1>
+        </div>
         {movies}
       </div>
     );
   }
 }
 
-export default GetMyMovies;
+export default Discover;

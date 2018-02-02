@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Movie.css';
-import authApi from '../api/authApi';
-import { API_ROOT } from '../api/apiConfig';
+import authApi from '../../api/authApi';
+import { API_ROOT } from '../../api/apiConfig';
 
 class Movie extends Component {
   constructor(props) {
