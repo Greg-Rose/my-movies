@@ -60,9 +60,6 @@ class Discover extends Component {
 
     return (
       <div className="row text-center">
-        <div className="col-12">
-          <h1 id="discover-title">Discover</h1>
-        </div>
         {movies}
       </div>
     );
