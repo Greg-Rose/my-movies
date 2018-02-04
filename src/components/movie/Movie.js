@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Movie.css';
-import authApi from '../../api/authApi';
-import { API_ROOT } from '../../api/apiConfig';
+import ApiRequest from '../../api/apiRequest';
 
 class Movie extends Component {
   constructor(props) {
@@ -17,31 +16,16 @@ class Movie extends Component {
       this.props.history.replace('/');
     }
     else {
-      fetch(API_ROOT + '/movies/find/' + this.props.location.state.id, {
-        headers: new Headers({
-          'Authorization': authApi.getToken(),
-          'Content-Type': 'application/json'
-        })
-      })
-        .then(response => {
-          if (response.ok) {
-            return response;
-          } else {
-            let errorMessage = `${response.status} (${response.statusText})`,
-                error = new Error(errorMessage);
-            throw(error);
-          }
-        })
-        .then(response => response.json())
-        .then(response => {
-          this.setState({
-            movie: response,
-            watched: response.watched,
-            to_watch: response.to_watch,
-            my_movie_id: response.my_movie_id
-          });
-        })
-        .catch(error => console.error(`Error in fetch: ${error.message}`));
+      let setMovie = (response) => {
+        this.setState({
+          movie: response,
+          watched: response.watched,
+          to_watch: response.to_watch,
+          my_movie_id: response.my_movie_id
+        });
+      };
+
+      ApiRequest.get('/movies/find/' + this.props.location.state.id, setMovie);
     }
   }
 
@@ -58,32 +42,15 @@ class Movie extends Component {
         to_watch: toWatch
       };
 
-      fetch(API_ROOT + '/my_movies', {
-        method: 'post',
-        headers: new Headers({
-          'Authorization': authApi.getToken(),
-          'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify(movie)
-      })
-        .then(response => {
-          if (response.ok) {
-            return response;
-          } else {
-            let errorMessage = `${response.status} (${response.statusText})`,
-                error = new Error(errorMessage);
-            throw(error);
-          }
-        })
-        .then(response => response.json())
-        .then(response => {
-          this.setState({
-            watched: response.watched,
-            to_watch: response.to_watch,
-            my_movie_id: response.id
-          });
-        })
-        .catch(error => console.error(`Error in fetch: ${error.message}`));
+      let setMovie = (response) => {
+        this.setState({
+          watched: response.watched,
+          to_watch: response.to_watch,
+          my_movie_id: response.id
+        });
+      };
+
+      ApiRequest.post('/my_movies', movie, setMovie);
     }
     else {
       let request = {
@@ -91,44 +58,15 @@ class Movie extends Component {
         to_watch: toWatch
       };
 
-      fetch(API_ROOT + '/my_movies/' + this.state.my_movie_id, {
-        method: 'put',
-        headers: new Headers({
-          'Authorization': authApi.getToken(),
-          'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify(request)
-      })
-        .then(response => {
-          if (response.ok) {
-            return response;
-          } else {
-            let errorMessage = `${response.status} (${response.statusText})`,
-                error = new Error(errorMessage);
-            throw(error);
-          }
-        })
-        .then(response => {
-          if (response.status === 204) {
-            this.setState({
-              watched: false,
-              to_watch: false,
-              my_movie_id: undefined
-            });
-          } else {
-            return response.json();
-          }
-        })
-        .then(response => {
-          if (response !== undefined) {
-            this.setState({
-              watched: response.watched,
-              to_watch: response.to_watch,
-              my_movie_id: response.id
-            });
-          }
-        })
-        .catch(error => console.error(`Error in fetch: ${error.message}`));
+      let setMyMovieStatus = (response) => {
+        this.setState({
+          watched: response.watched,
+          to_watch: response.to_watch,
+          my_movie_id: response.id
+        });
+      };
+
+      ApiRequest.put('/my_movies/' + this.state.my_movie_id, request, setMyMovieStatus);
     }
   }
 

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './Discover.css';
-import authApi from '../../api/authApi';
 import MovieThumb from '../movie/MovieThumb';
-import { API_ROOT } from '../../api/apiConfig';
 import { FormGroup, Label, Input } from 'reactstrap';
+import ApiRequest from '../../api/apiRequest';
 
 class Discover extends Component {
   constructor() {
@@ -13,85 +12,31 @@ class Discover extends Component {
       genres: []
     };
     this.selectGenre = this.selectGenre.bind(this);
+    this.setMovies = this.setMovies.bind(this);
+  }
+
+  setMovies(response) {
+    this.setState({
+      page: response.page,
+      movies: response.results,
+      totalPages: response.total_pages
+    });
   }
 
   componentDidMount() {
-    fetch(API_ROOT + '/genres', {
-      headers: new Headers({
-      'Authorization': authApi.getToken(),
-      'Content-Type': 'application/json'
-      })
-    })
-      .then(response => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-              error = new Error(errorMessage);
-          throw(error);
-        }
-      })
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          genres: response
-        });
-      })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+    let setGenres = (response) => {
+      this.setState({ genres: response });
+    };
 
-    fetch(API_ROOT + '/movies/discover', {
-      headers: new Headers({
-      'Authorization': authApi.getToken(),
-      'Content-Type': 'application/json'
-      })
-    })
-      .then(response => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-              error = new Error(errorMessage);
-          throw(error);
-        }
-      })
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          page: response.page,
-          movies: response.results,
-          totalPages: response.total_pages
-        });
-      })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+    ApiRequest.get('/genres', setGenres);
+
+    ApiRequest.get('/movies/discover', this.setMovies);
   }
 
   selectGenre(event) {
     let genre = event.target.options[event.target.selectedIndex].getAttribute("data-tmdb-id");
 
-    fetch(API_ROOT + '/movies/discover?genres=' + genre, {
-      headers: new Headers({
-        'Authorization': authApi.getToken(),
-        'Content-Type': 'application/json'
-      })
-    })
-      .then(response => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-              error = new Error(errorMessage);
-          throw(error);
-        }
-      })
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          page: response.page,
-          movies: response.results,
-          totalPages: response.total_pages
-        });
-      })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+    ApiRequest.get('/movies/discover?genres=' + genre, this.setMovies);
   }
 
   render() {
@@ -100,6 +45,7 @@ class Discover extends Component {
         <option key={genre.tmdb_id} data-tmdb-id={genre.tmdb_id}>{genre.name}</option>
       )
     });
+    
     let movies = this.state.movies.map(movieData => {
       return (
         <MovieThumb
