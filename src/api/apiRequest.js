@@ -52,6 +52,12 @@ class ApiRequest {
       this.request(endpoint, 'put', data, responseFunc)
     );
   }
+
+  static delete(endpoint, responseFunc) {
+    return (
+      this.request(endpoint, 'delete', null, responseFunc)
+    );
+  }
 }
 
 export default ApiRequest;

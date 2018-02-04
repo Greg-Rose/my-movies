@@ -8,6 +8,7 @@ class Movie extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.markAsToWatch = this.markAsToWatch.bind(this);
     this.markAsWatched = this.markAsWatched.bind(this);
+    this.setMyMovieStatus = this.setMyMovieStatus.bind(this);
   }
 
   componentDidMount() {
@@ -42,15 +43,10 @@ class Movie extends Component {
         to_watch: toWatch
       };
 
-      let setMovie = (response) => {
-        this.setState({
-          watched: response.watched,
-          to_watch: response.to_watch,
-          my_movie_id: response.id
-        });
-      };
-
-      ApiRequest.post('/my_movies', movie, setMovie);
+      ApiRequest.post('/my_movies', movie, this.setMyMovieStatus);
+    }
+    else if (watched === false && toWatch === false) {
+      ApiRequest.delete('/my_movies/' + this.state.my_movie_id, this.setMyMovieStatus);
     }
     else {
       let request = {
@@ -58,16 +54,16 @@ class Movie extends Component {
         to_watch: toWatch
       };
 
-      let setMyMovieStatus = (response) => {
-        this.setState({
-          watched: response.watched,
-          to_watch: response.to_watch,
-          my_movie_id: response.id
-        });
-      };
-
-      ApiRequest.put('/my_movies/' + this.state.my_movie_id, request, setMyMovieStatus);
+      ApiRequest.put('/my_movies/' + this.state.my_movie_id, request, this.setMyMovieStatus);
     }
+  }
+
+  setMyMovieStatus(response) {
+    this.setState({
+      watched: response.watched,
+      to_watch: response.to_watch,
+      my_movie_id: response.id
+    });
   }
 
   markAsWatched() {
