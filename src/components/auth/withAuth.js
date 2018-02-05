@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import authApi from '../api/authApi';
-import NavBar from './NavBar';
+import authApi from '../../api/authApi';
+import NavBar from '../layout/NavBar';
 
 export default function withAuth(AuthComponent) {
   return class AuthWrapped extends Component {

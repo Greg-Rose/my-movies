@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './SignInPage.css';
 import { Button, Form, FormGroup, Input } from 'reactstrap';
-import authApi from '../api/authApi';
+import authApi from '../../api/authApi';
 import { NavLink } from 'react-router-dom';
 
 
@@ -13,9 +13,7 @@ class SignUpPage extends Component {
   }
 
   componentWillMount() {
-    if(authApi.userSignedIn()) {
-      this.props.history.replace('/');
-    }
+    this.redirect();
   }
 
   onChange(event) {
@@ -33,10 +31,13 @@ class SignUpPage extends Component {
     };
 
     authApi.signUp(credentials)
-      .then(res => {
-        this.props.history.replace('/');
-      })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+      .then(() => this.redirect());
+  }
+
+  redirect() {
+    if(authApi.userSignedIn()) {
+      this.props.history.replace('/');
+    }
   }
 
   render() {

@@ -3,7 +3,7 @@ import {
   Navbar,
   Nav,
   NavItem } from 'reactstrap';
-import authApi from '../api/authApi';
+import authApi from '../../api/authApi';
 import { NavLink } from 'react-router-dom';
 import './NavBar.css';
 
@@ -18,7 +18,7 @@ class NavBar extends Component {
       <Navbar color="faded" dark expand="xs">
         <Nav className="mr-auto" navbar>
           <NavItem>
-            <NavLink to="/discover" className="nav-link">Discover</NavLink>
+            <NavLink to="/browse" className="nav-link">Browse</NavLink>
           </NavItem>
           <NavItem>
             <NavLink to="/my_movies" className="nav-link">My Movies</NavLink>
