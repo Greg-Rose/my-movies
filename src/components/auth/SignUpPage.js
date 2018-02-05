@@ -13,9 +13,7 @@ class SignUpPage extends Component {
   }
 
   componentWillMount() {
-    if(authApi.userSignedIn()) {
-      this.props.history.replace('/');
-    }
+    this.redirect();
   }
 
   onChange(event) {
@@ -33,10 +31,13 @@ class SignUpPage extends Component {
     };
 
     authApi.signUp(credentials)
-      .then(res => {
-        this.props.history.replace('/');
-      })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+      .then(() => this.redirect());
+  }
+
+  redirect() {
+    if(authApi.userSignedIn()) {
+      this.props.history.replace('/');
+    }
   }
 
   render() {

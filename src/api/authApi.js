@@ -1,56 +1,16 @@
 import decode from 'jwt-decode';
-import { API_ROOT } from './apiConfig';
+import ApiRequest from './apiRequest';
 
 class AuthApi {
   static signIn(credentials) {
     return (
-      fetch(API_ROOT + '/sign_in', {
-        method: 'post',
-        headers: new Headers({
-          'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify(credentials)
-      })
-        .then(response => {
-          if (response.ok) {
-            return response;
-          } else {
-            let errorMessage = `${response.status} (${response.statusText})`,
-                error = new Error(errorMessage);
-            throw(error);
-          }
-        })
-        .then(response => response.json())
-        .then(response => {
-          this.setToken(response.auth_token);
-          return Promise.resolve(response);
-        })
+      ApiRequest.post('/sign_in', credentials, this.setToken, this.headers())
     );
   }
 
   static signUp(credentials) {
     return (
-      fetch(API_ROOT + '/sign_up', {
-        method: 'post',
-        headers: new Headers({
-          'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify(credentials)
-      })
-        .then(response => {
-          if (response.ok) {
-            return response;
-          } else {
-            let errorMessage = `${response.status} (${response.statusText})`,
-                error = new Error(errorMessage);
-            throw(error);
-          }
-        })
-        .then(response => response.json())
-        .then(response => {
-          this.setToken(response.auth_token);
-          return Promise.resolve(response);
-        })
+      ApiRequest.post('/sign_up', credentials, this.setToken, this.headers())
     );
   }
 
@@ -73,8 +33,8 @@ class AuthApi {
     }
   }
 
-  static setToken(token) {
-    localStorage.setItem('authToken', token);
+  static setToken(response) {
+    localStorage.setItem('authToken', response.auth_token);
   }
 
   static getToken() {
@@ -83,6 +43,14 @@ class AuthApi {
 
   static signOut() {
     localStorage.removeItem('authToken');
+  }
+
+  static headers() {
+    return (
+      new Headers({
+        'Content-Type': 'application/json'
+      })
+    );
   }
 }
 

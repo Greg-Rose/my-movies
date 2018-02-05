@@ -2,20 +2,24 @@ import { API_ROOT } from './apiConfig';
 import authApi from './authApi';
 
 class ApiRequest {
-  static request(endpoint, method, data, responseFunc) {
+  static request(endpoint, method, data, responseFunc, headers = null) {
     let body = null;
 
     if (data !== null) {
       body = JSON.stringify(data);
     }
 
+    if (headers === null) {
+      headers = new Headers({
+        'Authorization': authApi.getToken(),
+        'Content-Type': 'application/json'
+      });
+    }
+
     return (
       fetch(API_ROOT + endpoint, {
         method: method,
-        headers: new Headers({
-          'Authorization': authApi.getToken(),
-          'Content-Type': 'application/json'
-        }),
+        headers: headers,
         body: body
       })
         .then(response => {
@@ -41,9 +45,9 @@ class ApiRequest {
     );
   }
 
-  static post(endpoint, data, responseFunc) {
+  static post(endpoint, data, responseFunc, headers = null) {
     return (
-      this.request(endpoint, 'post', data, responseFunc)
+      this.request(endpoint, 'post', data, responseFunc, headers)
     );
   }
 
