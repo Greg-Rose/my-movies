@@ -8,8 +8,14 @@
   100% { transform: rotate(360deg); }
 }
 
-#genres {
+#genres, #sort {
   margin: auto;
   min-width: 141px;
   width: auto;
+}
+
+.sort-filter {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
 }
