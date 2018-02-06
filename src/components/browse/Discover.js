@@ -3,6 +3,7 @@ import './Discover.css';
 import MovieThumb from '../movie/MovieThumb';
 import { FormGroup, Label, Input } from 'reactstrap';
 import ApiRequest from '../../api/apiRequest';
+import Spinner from '../layout/Spinner';
 
 class Discover extends Component {
   constructor() {
@@ -43,6 +44,8 @@ class Discover extends Component {
   }
 
   render() {
+    if (this.state.movies.length === 0) { return <Spinner />; }
+
     let genres = this.state.genres.map(genre => {
       return <option key={genre.tmdb_id} value={genre.tmdb_id}>{genre.name}</option>
     });
@@ -61,14 +64,6 @@ class Discover extends Component {
         <MovieThumb key={movieData.id} data={movieData} tmdbId={movieData.id} />
       )
     })
-
-    if (movies.length === 0) {
-      movies = (
-        <div className="col">
-          <i className="fa fa-spinner" aria-hidden="true"></i>
-        </div>
-      )
-    }
 
     return (
       <div className="row text-center">

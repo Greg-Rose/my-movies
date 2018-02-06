@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Movie.css';
 import ApiRequest from '../../api/apiRequest';
+import Spinner from '../layout/Spinner';
 
 class Movie extends Component {
   constructor(props) {
@@ -76,7 +77,7 @@ class Movie extends Component {
 
   render() {
     if (this.props.location.state === undefined || this.state === null) {
-      return null;
+      return <Spinner />;
     }
 
     let title = this.state.movie.title;
