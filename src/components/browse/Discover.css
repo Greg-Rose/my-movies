@@ -1,15 +1,11 @@
-.fa-spinner {
-  animation: spin 2s linear infinite;
-  font-size: 40px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-#genres {
+#genres, #sort {
   margin: auto;
   min-width: 141px;
   width: auto;
+}
+
+.sort-filter {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MovieThumb from '../movie/MovieThumb';
 import ApiRequest from '../../api/apiRequest';
+import Spinner from '../layout/Spinner';
 
 class GetMyMovies extends Component {
   constructor() {
@@ -19,6 +20,8 @@ class GetMyMovies extends Component {
   }
 
   render() {
+    if (this.state.movies.length === 0) { return <Spinner />; }
+
     let movies = this.state.movies.map(movieData => {
       return (
         <MovieThumb

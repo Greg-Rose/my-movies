@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MovieThumb from '../movie/MovieThumb';
 import ApiRequest from '../../api/apiRequest';
+import Spinner from '../layout/Spinner';
 
 class Popular extends Component {
   constructor() {
@@ -23,6 +24,8 @@ class Popular extends Component {
   }
 
   render() {
+    if (this.state.movies.length === 0) { return <Spinner />; }
+
     let movies = this.state.movies.map(movieData => {
       return (
         <MovieThumb
@@ -32,14 +35,6 @@ class Popular extends Component {
         />
       )
     })
-
-    if (movies.length === 0) {
-      movies = (
-        <div className="col">
-          <i className="fa fa-spinner" aria-hidden="true"></i>
-        </div>
-      )
-    }
 
     return (
       <div className="row text-center">
