@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 class MovieThumb extends Component {
   render() {
+    if (this.props.data.poster_path === null) { return null; }
+
     let poster = `https://image.tmdb.org/t/p/w154/${this.props.data.poster_path}`;
     let id = this.props.tmdbId;
 
