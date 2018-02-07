@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, NavLink, Redirect } from 'react-router-dom';
 import { Nav, NavItem } from 'reactstrap';
 import Discover from './Discover';
-import Popular from './Popular';
+import Newest from './Newest';
 import './Browse.css';
 
 class Browse extends Component {
@@ -16,14 +16,14 @@ class Browse extends Component {
                 <NavLink to="/browse/discover" className="nav-link browse-nav">Discover</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/browse/popular" className="nav-link browse-nav">Popular</NavLink>
+                <NavLink to="/browse/newest" className="nav-link browse-nav">Newest</NavLink>
               </NavItem>
             </Nav>
           </div>
         </div>
         <Switch>
           <Route exact path="/browse/discover" component={Discover} />
-          <Route exact path="/browse/popular" component={Popular} />
+          <Route exact path="/browse/newest" component={Newest} />
           <Redirect to="/browse/discover" />
         </Switch>
       </div>
