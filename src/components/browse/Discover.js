@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Discover.css';
 import MovieThumb from '../movie/MovieThumb';
-import { FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, Label, Input, Button } from 'reactstrap';
 import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
 
@@ -10,16 +10,23 @@ class Discover extends Component {
     super();
     this.state = {
       movies: [],
-      genres: []
+      genres: [],
+      selectedGenre: '',
+      sortBy: '',
+      page: 1
     };
-    this.sortAndFilter = this.sortAndFilter.bind(this);
+    this.selectGenre = this.selectGenre.bind(this);
+    this.selectSort = this.selectSort.bind(this);
     this.setMovies = this.setMovies.bind(this);
+    this.nextPage = this.nextPage.bind(this);
   }
 
   setMovies(response) {
+    let movies = response.results;
+    if (response.page > 1) { movies = [...this.state.movies, ...response.results]; }
     this.setState({
       page: response.page,
-      movies: response.results,
+      movies: movies,
       totalPages: response.total_pages
     });
   }
@@ -34,13 +41,31 @@ class Discover extends Component {
     ApiRequest.get('/movies/discover', this.setMovies);
   }
 
-  sortAndFilter(event) {
+  selectGenre() {
     let genreSelect = document.getElementById('genres');
-    let sortSelect = document.getElementById('sort');
     let genre = genreSelect[genreSelect.selectedIndex].value;
-    let sort = sortSelect[sortSelect.selectedIndex].value;
+    this.setState({ selectedGenre: genre, page: 1 }, () => this.updateMovies());
+  }
 
-    ApiRequest.get('/movies/discover?sort_by=' + sort + '&genres=' + genre, this.setMovies);
+  selectSort() {
+    let sortSelect = document.getElementById('sort');
+    let sort = sortSelect[sortSelect.selectedIndex].value;
+    this.setState({ sortBy: sort, page: 1 }, () => this.updateMovies());
+  }
+
+  nextPage() {
+    let newPage = this.state.page + 1;
+    if (newPage <= this.state.totalPages) {
+      this.setState({ page: newPage }, () => this.updateMovies());
+    }
+  }
+
+  updateMovies() {
+    let genre = 'genres=' + this.state.selectedGenre;
+    let sort = '&sort_by=' + this.state.sortBy;
+    let page = '&page=' + this.state.page;
+
+    ApiRequest.get('/movies/discover?' + genre + sort + page, this.setMovies);
   }
 
   render() {
@@ -59,30 +84,46 @@ class Discover extends Component {
       return <option key={index} value={sort_by.value}>{sort_by.name}</option>
     });
 
+    let preventDuplicates = [];
+
     let movies = this.state.movies.map(movieData => {
-      return (
-        <MovieThumb key={movieData.id} data={movieData} tmdbId={movieData.id} />
-      )
+      if (preventDuplicates.includes(movieData.id)) { return null }
+      else {
+        preventDuplicates.push(movieData.id);
+        return (
+          <MovieThumb key={movieData.id} data={movieData} tmdbId={movieData.id} />
+        )
+      }
     })
+
+    let loadMoreBtn;
+    if (this.state.page <= this.state.totalPages) {
+      loadMoreBtn = (
+        <div className="col-12">
+          <Button color="secondary" onClick={this.nextPage} id="load-more-btn">More Movies</Button>
+        </div>
+      )
+    }
 
     return (
       <div className="row text-center">
         <div className="col-12">
           <FormGroup className="sort-filter">
             <Label for="genres">Genres</Label>
-            <Input type="select" name="select" id="genres" onChange={this.sortAndFilter}>
+            <Input type="select" name="select" id="genres" onChange={this.selectGenre}>
               <option value="">All</option>
               {genres}
             </Input>
           </FormGroup>
           <FormGroup className="sort-filter">
             <Label for="sort">Sort</Label>
-            <select name="select" id="sort" className="form-control" defaultValue="popularity.desc" onChange={this.sortAndFilter}>
+            <select name="select" id="sort" className="form-control" defaultValue="popularity.desc" onChange={this.selectSort}>
               {sort}
             </select>
           </FormGroup>
         </div>
         {movies}
+        {loadMoreBtn}
       </div>
     );
   }
