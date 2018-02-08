@@ -97,7 +97,7 @@ class Discover extends Component {
     })
 
     let loadMoreBtn;
-    if (this.state.page <= this.state.totalPages) {
+    if (this.state.page < this.state.totalPages) {
       loadMoreBtn = (
         <div className="col-12">
           <Button color="secondary" onClick={this.nextPage} id="load-more-btn">More Movies</Button>

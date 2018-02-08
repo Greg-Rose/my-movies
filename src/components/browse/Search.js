@@ -3,8 +3,9 @@ import MovieThumb from '../movie/MovieThumb';
 import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
 import { Button } from 'reactstrap';
+import './Search.css';
 
-class Newest extends Component {
+class Search extends Component {
   constructor() {
     super();
     this.state = {
@@ -26,7 +27,15 @@ class Newest extends Component {
   }
 
   componentDidMount() {
-    ApiRequest.get('/movies/newest', this.setMovies);
+    if (this.props.location.state !== undefined) {
+      ApiRequest.get('/movies/search?query=' + this.props.location.state.query, this.setMovies);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.state !== undefined) {
+      ApiRequest.get('/movies/search?query=' + nextProps.location.state.query, this.setMovies);
+    }
   }
 
   nextPage() {
@@ -39,7 +48,7 @@ class Newest extends Component {
   updateMovies() {
     let page = '&page=' + this.state.page;
 
-    ApiRequest.get('/movies/newest?' + page, this.setMovies);
+    ApiRequest.get('/movies/search?query=' + this.props.location.state.query + page, this.setMovies);
   }
 
   render() {
@@ -67,7 +76,7 @@ class Newest extends Component {
     }
 
     return (
-      <div className="row text-center">
+      <div className="row text-center" id="search-results">
         {movies}
         {loadMoreBtn}
       </div>
@@ -75,4 +84,4 @@ class Newest extends Component {
   }
 }
 
-export default Newest;
+export default Search;

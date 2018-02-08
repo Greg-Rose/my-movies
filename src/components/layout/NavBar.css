@@ -1,3 +1,23 @@
 #sign-out-link {
   cursor: pointer;
 }
+
+#no-collapse-nav {
+  flex-direction: row;
+}
+
+@media (max-width: 767px) {
+  #no-collapse-nav .nav-link {
+    padding-right: 1rem;
+  }
+
+  #search-form {
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  #search {
+    margin-left: .5rem;
+  }
+}
