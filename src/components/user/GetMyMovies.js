@@ -7,7 +7,7 @@ class GetMyMovies extends Component {
   constructor() {
     super();
     this.state = {
-      movies: []
+      movies: null
     };
   }
 
@@ -20,7 +20,7 @@ class GetMyMovies extends Component {
   }
 
   render() {
-    if (this.state.movies.length === 0) { return <Spinner />; }
+    if (this.state.movies === null) { return <Spinner />; }
 
     let movies = this.state.movies.map(movieData => {
       return (
@@ -31,6 +31,15 @@ class GetMyMovies extends Component {
         />
       )
     })
+
+    if (movies.length === 0) {
+      let message = `Mark movies as "${this.props.name}" and they'll show up here.`;
+      movies = (
+        <div className="col text-center">
+          <p>{message}</p>
+        </div>
+      );
+    }
 
     return (
       <div className="row">
