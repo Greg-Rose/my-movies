@@ -3,6 +3,7 @@ import { Route, Switch, NavLink, Redirect } from 'react-router-dom';
 import { Nav, NavItem } from 'reactstrap';
 import Discover from './Discover';
 import Newest from './Newest';
+import Upcoming from './Upcoming';
 import './Browse.css';
 
 class Browse extends Component {
@@ -18,12 +19,16 @@ class Browse extends Component {
               <NavItem>
                 <NavLink to="/browse/newest" className="nav-link browse-nav">Newest</NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink to="/browse/upcoming" className="nav-link browse-nav">Upcoming</NavLink>
+              </NavItem>
             </Nav>
           </div>
         </div>
         <Switch>
           <Route exact path="/browse/discover" component={Discover} />
           <Route exact path="/browse/newest" component={Newest} />
+          <Route exact path="/browse/upcoming" component={Upcoming} />
           <Redirect to="/browse/discover" />
         </Switch>
       </div>
