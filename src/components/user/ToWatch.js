@@ -4,7 +4,7 @@ import GetMyMovies from './GetMyMovies';
 class ToWatch extends Component {
   render() {
     return (
-      <GetMyMovies path="my_movies_to_watch" />
+      <GetMyMovies name="To Watch" path="my_movies_to_watch" />
     );
   }
 }
