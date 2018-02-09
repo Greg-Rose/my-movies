@@ -10,6 +10,13 @@
   margin-right: 10px;
 }
 
-#load-more-btn {
-  margin-bottom: 30px;
+.sort-filter .form-control-label {
+  color: #950740;
+  font-weight: 600;
+}
+
+.sort-filter .form-control {
+  background-color: #950740;
+  border-color: #950740;
+  color: #fff;
 }

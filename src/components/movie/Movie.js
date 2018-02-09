@@ -113,9 +113,9 @@ class Movie extends Component {
     return (
       <div className="col-12 text-center" id="movie-div">
         <div id="movie-btns-div">
-          <button type="button" className="btn btn-light" onClick={this.markAsToWatch}>{toWatchBtnIcon} To Watch</button>
+          <button type="button" className="btn btn-secondary" onClick={this.markAsToWatch}>{toWatchBtnIcon} To Watch</button>
           {" "}
-          <button type="button" className="btn btn-light" onClick={this.markAsWatched}>{watchedBtnIcon} Watched</button>
+          <button type="button" className="btn btn-secondary" onClick={this.markAsWatched}>{watchedBtnIcon} Watched</button>
         </div>
         <img src={poster} alt="movie poster" />
         <h2 className="text-center">{title}</h2>

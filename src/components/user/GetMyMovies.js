@@ -36,7 +36,7 @@ class GetMyMovies extends Component {
       let message = `Mark movies as "${this.props.name}" and they'll show up here.`;
       movies = (
         <div className="col text-center">
-          <p>{message}</p>
+          <p className="my-movies-message">{message}</p>
         </div>
       );
     }
