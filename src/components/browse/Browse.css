@@ -1,7 +1,7 @@
-.nav-link.browse-nav {
-  color: rgba(255, 255, 255, 0.5);
+#browse-nav-div {
+  margin-bottom: 30px;
 }
 
-#browse-nav-div {
+#load-more-btn {
   margin-bottom: 30px;
 }

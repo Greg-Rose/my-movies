@@ -21,3 +21,14 @@
     margin-left: .5rem;
   }
 }
+
+#search {
+  background-color: #6f2232;
+  border-color: #6f2232;
+  color: #fff;
+}
+
+#search.form-control:focus {
+  -webkit-box-shadow: 0 0 0 0.1rem #950740;
+  box-shadow: 0 0 0 0.1rem #950740;
+}
