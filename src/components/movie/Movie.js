@@ -3,6 +3,7 @@ import './Movie.css';
 import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
 import getUSReleaseDate from '../../helpers/date';
+import { Badge } from 'reactstrap';
 
 class Movie extends Component {
   constructor(props) {
@@ -111,18 +112,39 @@ class Movie extends Component {
 
 
     return (
-      <div className="col-12 text-center" id="movie-div">
-        <div id="movie-btns-div">
+      <div className="row text-center" id="movie-div">
+        <div className="col-12" id="movie-btns-div">
           <button type="button" className="btn btn-secondary" onClick={this.markAsToWatch}>{toWatchBtnIcon} To Watch</button>
           {" "}
           <button type="button" className="btn btn-secondary" onClick={this.markAsWatched}>{watchedBtnIcon} Watched</button>
         </div>
-        <img src={poster} alt="movie poster" />
-        <h2 className="text-center">{title}</h2>
-        <p>{overview}</p>
-        <p>Release Date: {releaseDate}</p>
-        <p>Runtime: {runtime} minutes</p>
-        <p>Genres: {genres}</p>
+        <div className="col-12">
+          <img src={poster} alt="movie poster" />
+        </div>
+        <div className="col-12">
+          <h2 className="text-center">{title}</h2>
+        </div>
+        <div className="col-12">
+          <p>{overview}</p>
+        </div>
+        <div className="col-12">
+          <Badge className="movie-info-box">
+            <h6 className="movie-info-box-title">Genres</h6>
+            <h6 className="movie-info-box-body">{genres}</h6>
+          </Badge>
+        </div>
+        <div className="col col-md-2 offset-md-4">
+          <Badge className="movie-info-box">
+            <h6 className="movie-info-box-title">Release Date</h6>
+            <h6 className="movie-info-box-body">{releaseDate}</h6>
+          </Badge>
+        </div>
+        <div className="col col-md-2">
+          <Badge className="movie-info-box">
+            <h6 className="movie-info-box-title">Runtime</h6>
+            <h6 className="movie-info-box-body">{runtime} minutes</h6>
+          </Badge>
+        </div>
       </div>
     );
   }
