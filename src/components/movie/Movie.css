@@ -22,8 +22,10 @@
 
 .movie-info-box {
   background: none;
+  display: block;
   margin-bottom: 20px;
   padding: 0;
+  white-space: normal;
 }
 
 .movie-info-box-title {

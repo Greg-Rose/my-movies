@@ -127,19 +127,20 @@ class Movie extends Component {
         <div className="col-12 col-md-8 offset-md-2">
           <p>{overview}</p>
         </div>
-        <div className="col-12">
+        <div className="w-100"></div>
+        <div className="col-12 col-md-auto order-md-2">
           <Badge className="movie-info-box">
             <h6 className="movie-info-box-title">Genres</h6>
             <h6 className="movie-info-box-body">{genres}</h6>
           </Badge>
         </div>
-        <div className="col col-md-2 offset-md-4">
+        <div className="col-auto col-md-auto ml-auto order-md-1">
           <Badge className="movie-info-box">
             <h6 className="movie-info-box-title">Release Date</h6>
             <h6 className="movie-info-box-body">{releaseDate}</h6>
           </Badge>
         </div>
-        <div className="col col-md-2">
+        <div className="col-auto col-md-auto mr-auto order-md-3">
           <Badge className="movie-info-box">
             <h6 className="movie-info-box-title">Runtime</h6>
             <h6 className="movie-info-box-body">{runtime} minutes</h6>

@@ -1,5 +1,20 @@
+let formatDate = (dateStr) => {
+  if (dateStr === null || dateStr.length === 0) { return null; }
+
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  let date = new Date(dateStr);
+
+  let year = date.getUTCFullYear();
+  let month = date.getUTCMonth();
+  let monthName = monthNames[month];
+  let day = date.getUTCDate();
+
+  let releaseDate = `${monthName} ${day}, ${year}`;
+  return releaseDate;
+};
+
 const getUSReleaseDate = (releaseDateResults, backup) => {
-  let backupRD = backup || "Unknown";
+  let backupRD = formatDate(backup) || "Unknown";
 
   let rdRegion = releaseDateResults.find((rd) => {
     return rd.iso_3166_1 === "US";
@@ -12,10 +27,8 @@ const getUSReleaseDate = (releaseDateResults, backup) => {
   });
 
   if (releaseDateData === undefined) { return backupRD; }
-  
-  let date = new Date(releaseDateData.release_date);
-  let releaseDate = `${date.getUTCFullYear()}-${('0' + (date.getUTCMonth()+1)).slice(-2)}-${('0' + date.getUTCDate()).slice(-2)}`;
-  return releaseDate;
+
+  return formatDate(releaseDateData.release_date);
 };
 
 export default getUSReleaseDate;
