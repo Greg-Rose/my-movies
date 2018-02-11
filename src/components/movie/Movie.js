@@ -124,7 +124,7 @@ class Movie extends Component {
         <div className="col-12">
           <h2 className="text-center">{title}</h2>
         </div>
-        <div className="col-12">
+        <div className="col-12 col-md-8 offset-md-2">
           <p>{overview}</p>
         </div>
         <div className="col-12">
