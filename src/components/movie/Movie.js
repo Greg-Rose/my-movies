@@ -87,6 +87,13 @@ class Movie extends Component {
     let releaseDate = getUSReleaseDate(this.state.movie.release_dates.results, this.state.movie.release_date);
     let overview = this.state.movie.overview;
     let runtime = this.state.movie.runtime;
+    if (runtime === 0) {
+      runtime = "Unknown";
+    }
+    else {
+      runtime += " minutes";
+    }
+    
     let genres = this.state.movie.genres.map((genre, index) => {
       let output = genre.name;
       if (index !== this.state.movie.genres.length - 1) {
@@ -143,7 +150,7 @@ class Movie extends Component {
         <div className="col-auto col-md-auto mr-auto order-md-3">
           <Badge className="movie-info-box">
             <h6 className="movie-info-box-title">Runtime</h6>
-            <h6 className="movie-info-box-body">{runtime} minutes</h6>
+            <h6 className="movie-info-box-body">{runtime}</h6>
           </Badge>
         </div>
       </div>
