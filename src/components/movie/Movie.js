@@ -4,6 +4,7 @@ import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
 import getUSReleaseDate from '../../helpers/date';
 import { Badge } from 'reactstrap';
+import Cast from './Cast';
 
 class Movie extends Component {
   constructor(props) {
@@ -83,7 +84,7 @@ class Movie extends Component {
     }
 
     let title = this.state.movie.title;
-    let poster = `https://image.tmdb.org/t/p/w300/${this.state.movie.poster_path}`;
+    let poster = `https://image.tmdb.org/t/p/w300${this.state.movie.poster_path}`;
     let releaseDate = getUSReleaseDate(this.state.movie.release_dates.results, this.state.movie.release_date);
     let overview = this.state.movie.overview;
     let runtime = this.state.movie.runtime;
@@ -153,6 +154,7 @@ class Movie extends Component {
             <h6 className="movie-info-box-body">{runtime}</h6>
           </Badge>
         </div>
+        <Cast castData={this.state.movie.credits.cast} />
       </div>
     );
   }
