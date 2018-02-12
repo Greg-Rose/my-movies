@@ -123,7 +123,7 @@ class Movie extends Component {
 
 
     return (
-      <div className="row text-center" id="movie-div">
+      <div className="row text-center justify-content-center" id="movie-div">
         <div className="col-12" id="movie-btns-div">
           <button type="button" className="btn btn-secondary" onClick={this.markAsToWatch}>{toWatchBtnIcon} To Watch</button>
           {" "}
@@ -135,7 +135,7 @@ class Movie extends Component {
         <div className="col-12">
           <h2 className="text-center">{title}</h2>
         </div>
-        <div className="col-12 col-md-8 offset-md-2">
+        <div className="col-12 col-md-8">
           <p>{overview}</p>
         </div>
         <div className="w-100"></div>
@@ -157,6 +157,7 @@ class Movie extends Component {
             <h6 className="movie-info-box-body">{runtime}</h6>
           </Badge>
         </div>
+        <div className="w-100 order-md-4"></div>
         <Cast castData={this.state.movie.credits.cast} />
         <Trailers videos={this.state.movie.videos.results} />
       </div>

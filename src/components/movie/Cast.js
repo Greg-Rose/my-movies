@@ -6,11 +6,26 @@ class Cast extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-    this.state = { collapse: false };
+    this.onEntering = this.onEntering.bind(this);
+    this.onExited = this.onExited.bind(this);
+    this.state = {
+      collapse: false,
+      divClass: "col-auto"
+    };
   }
 
   toggle() {
     this.setState({ collapse: !this.state.collapse });
+  }
+
+  onEntering() {
+    let className = "col-12";
+    this.setState({ divClass: className });
+  }
+
+  onExited() {
+    let className = "col-auto";
+    this.setState({ divClass: className });
   }
 
   render() {
@@ -43,9 +58,9 @@ class Cast extends Component {
     });
 
     return (
-      <div className="col-12 order-md-4">
+      <div className={`${this.state.divClass} order-md-5`}>
         <Button color="secondary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Cast</Button>
-        <Collapse isOpen={this.state.collapse}>
+        <Collapse isOpen={this.state.collapse} onEntering={this.onEntering} onExited={this.onExited}>
           <div className="row justify-content-center">
             {cast}
           </div>
