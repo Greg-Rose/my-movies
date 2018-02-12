@@ -32,6 +32,14 @@
   border-color: #fff transparent transparent;
 }
 
+.Select .Select-arrow-zone:hover > .Select-arrow {
+    border-top-color: #fff;
+}
+
+.Select.is-open > .Select-control .Select-arrow {
+  border-color: transparent transparent #fff;
+}
+
 .Select-control .Select-input:focus {
   background: none;
 }
