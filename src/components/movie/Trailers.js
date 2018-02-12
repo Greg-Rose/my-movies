@@ -48,9 +48,11 @@ class Trailers extends Component {
 
     if (trailers.length === 0) { return null; }
 
+    let btnArrow = this.state.collapse ? "btn-arrow arrow-open" : "btn-arrow";
+
     return (
       <div className={`${this.state.divClass} order-md-6`}>
-        <Button color="secondary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Trailers</Button>
+        <Button color="secondary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Trailers <span className={btnArrow}></span></Button>
         <Collapse isOpen={this.state.collapse} onEntering={this.onEntering} onExited={this.onExited}>
           <div className="row justify-content-center">
             {trailers}

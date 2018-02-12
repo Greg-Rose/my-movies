@@ -57,9 +57,11 @@ class Cast extends Component {
       );
     });
 
+    let btnArrow = this.state.collapse ? "btn-arrow arrow-open" : "btn-arrow";
+
     return (
       <div className={`${this.state.divClass} order-md-5`}>
-        <Button color="secondary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Cast</Button>
+        <Button color="secondary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Cast <span className={btnArrow}></span></Button>
         <Collapse isOpen={this.state.collapse} onEntering={this.onEntering} onExited={this.onExited}>
           <div className="row justify-content-center">
             {cast}
