@@ -94,7 +94,7 @@ class Movie extends Component {
     else {
       runtime += " minutes";
     }
-    
+
     let genres = this.state.movie.genres.map((genre, index) => {
       let output = genre.name;
       if (index !== this.state.movie.genres.length - 1) {
@@ -102,6 +102,8 @@ class Movie extends Component {
       }
       return output;
     });
+
+    if (genres.length === 0) { genres = "Unknown"; }
 
     let watchedBtnIcon;
     let toWatchBtnIcon;

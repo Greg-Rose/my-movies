@@ -13,7 +13,7 @@ class Discover extends Component {
     this.state = {
       movies: [],
       genres: [],
-      selectedGenre: '',
+      selectedGenre: { value: "", label: "All" },
       sortBy: { label: "Popularity ↓", value: "popularity.desc" },
       page: 1
     };
@@ -73,6 +73,8 @@ class Discover extends Component {
       return { key: genre.tmdb_id, value: genre.tmdb_id, label: genre.name };
     });
 
+    genres.unshift({ value: "", label: "All" });
+
     const sortList = [
       { label: "Popularity ↑", value: "popularity.asc" },
       { label: "Popularity ↓", value: "popularity.desc" }
@@ -113,7 +115,7 @@ class Discover extends Component {
             name="select"
             value={genreValue}
             onChange={this.selectGenre}
-            options={[{ value: "", label: "All" }, ...genres]}
+            options={genres}
             clearable={false}
             searchable={false}
           />
