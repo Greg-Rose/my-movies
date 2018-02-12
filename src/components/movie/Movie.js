@@ -5,6 +5,7 @@ import Spinner from '../layout/Spinner';
 import getUSReleaseDate from '../../helpers/date';
 import { Badge } from 'reactstrap';
 import Cast from './Cast';
+import Trailers from './Trailers';
 
 class Movie extends Component {
   constructor(props) {
@@ -157,6 +158,7 @@ class Movie extends Component {
           </Badge>
         </div>
         <Cast castData={this.state.movie.credits.cast} />
+        <Trailers videos={this.state.movie.videos.results} />
       </div>
     );
   }
