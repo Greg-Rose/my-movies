@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import './Movie.css';
 import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
-import getUSReleaseDate from '../../helpers/date';
+import ReleaseDate from '../../helpers/ReleaseDate';
 import { Badge } from 'reactstrap';
 import Cast from './Cast';
 import Trailers from './Trailers';
+import Rating from './Rating';
 
 class Movie extends Component {
   constructor(props) {
@@ -86,11 +87,13 @@ class Movie extends Component {
 
     let title = this.state.movie.title;
     let poster = `https://image.tmdb.org/t/p/w300${this.state.movie.poster_path}`;
-    let releaseDate = getUSReleaseDate(this.state.movie.release_dates.results, this.state.movie.release_date);
+    let releaseDateData = new ReleaseDate(this.state.movie.release_dates.results, this.state.movie.release_date);
+    let releaseDate = releaseDateData.getUSReleaseDate();
+    let rating = releaseDateData.getUSRating();
     let overview = this.state.movie.overview;
     let runtime = this.state.movie.runtime;
     if (runtime === 0) {
-      runtime = "Unknown";
+      runtime = "N/A";
     }
     else {
       runtime += " minutes";
@@ -104,7 +107,7 @@ class Movie extends Component {
       return output;
     });
 
-    if (genres.length === 0) { genres = "Unknown"; }
+    if (genres.length === 0) { genres = "N/A"; }
 
     let watchedBtnIcon;
     let toWatchBtnIcon;
@@ -139,19 +142,22 @@ class Movie extends Component {
           <p>{overview}</p>
         </div>
         <div className="w-100"></div>
-        <div className="col-12 col-md-auto order-md-2">
+        <div className="col-md-12 col-lg-auto order-lg-2">
           <Badge className="movie-info-box">
             <h6 className="movie-info-box-title">Genres</h6>
             <h6 className="movie-info-box-body">{genres}</h6>
           </Badge>
         </div>
-        <div className="col-auto col-md-auto ml-auto order-md-1">
+        <div className="col-auto col-md-auto ml-auto order-md-1 movie-info-outer">
           <Badge className="movie-info-box">
             <h6 className="movie-info-box-title">Release Date</h6>
             <h6 className="movie-info-box-body">{releaseDate}</h6>
           </Badge>
         </div>
-        <div className="col-auto col-md-auto mr-auto order-md-3">
+        <div className="col-auto col-md-auto order-md-3 movie-info-outer">
+          <Rating rating={rating} />
+        </div>
+        <div className="col-auto col-md-auto mr-auto order-md-4 movie-info-outer">
           <Badge className="movie-info-box">
             <h6 className="movie-info-box-title">Runtime</h6>
             <h6 className="movie-info-box-body">{runtime}</h6>
