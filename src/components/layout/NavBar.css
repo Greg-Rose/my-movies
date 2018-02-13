@@ -20,6 +20,13 @@
   #search {
     margin-left: .5rem;
   }
+
+  .navbar-expand-md .navbar-nav .nav-link {
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: .5rem;
+    margin-left: .5rem;
+  }
 }
 
 #search {
