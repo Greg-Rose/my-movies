@@ -51,6 +51,10 @@ class Search extends Component {
     ApiRequest.get('/movies/search?query=' + this.props.location.state.query + page, this.setMovies);
   }
 
+  componentWillUnmount() {
+    document.getElementById('search').value = "";
+  }
+
   render() {
     if (this.state.movies.length === 0) { return <Spinner />; }
 

@@ -1,0 +1,75 @@
+import React, { Component } from 'react';
+import { Collapse, Button } from 'reactstrap';
+import './Cast.css';
+
+class Cast extends Component {
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.onEntering = this.onEntering.bind(this);
+    this.onExited = this.onExited.bind(this);
+    this.state = {
+      collapse: false,
+      divClass: "col-auto"
+    };
+  }
+
+  toggle() {
+    this.setState({ collapse: !this.state.collapse });
+  }
+
+  onEntering() {
+    let className = "col-12";
+    this.setState({ divClass: className });
+  }
+
+  onExited() {
+    let className = "col-auto";
+    this.setState({ divClass: className });
+  }
+
+  render() {
+    if (this.props.castData.length === 0) { return null; }
+
+    let cast = this.props.castData.map((member, index) => {
+      let photo;
+      if (member.profile_path === null) {
+        photo = 'http://www.jpi-oceans.eu/sites/jpi-oceans.eu/files/public/styles/portret/public/blank-profile-picture-973460_960_720_4.png?itok=efD9Alxa';
+      }
+      else {
+        photo = `https://image.tmdb.org/t/p/w185/${member.profile_path}`;
+      }
+
+      return (
+        <div key={index} className="col-12 col-md-4 cast-member-outer-div">
+          <div className="row align-items-center">
+            <div className="col-4 col-md-4 cast-img">
+              <img src={photo} alt="cast member" width="100" />
+            </div>
+            <div className="col-8 col-md-8 text-left cast-info">
+              <h6>Actor</h6>
+              <p className="cast-name">{member.name}</p>
+              <h6>Character</h6>
+              <p className="cast-character">{member.character}</p>
+            </div>
+          </div>
+        </div>
+      );
+    });
+
+    let btnArrow = this.state.collapse ? "btn-arrow arrow-open" : "btn-arrow";
+
+    return (
+      <div className={`${this.state.divClass} order-md-5`}>
+        <Button color="secondary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Cast <span className={btnArrow}></span></Button>
+        <Collapse isOpen={this.state.collapse} onEntering={this.onEntering} onExited={this.onExited}>
+          <div className="row justify-content-center">
+            {cast}
+          </div>
+        </Collapse>
+      </div>
+    );
+  }
+}
+
+export default Cast;

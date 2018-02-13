@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import './Movie.css';
 import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
-import getUSReleaseDate from '../../helpers/date';
+import ReleaseDate from '../../helpers/ReleaseDate';
+import { Badge } from 'reactstrap';
+import Cast from './Cast';
+import Trailers from './Trailers';
+import Rating from './Rating';
 
 class Movie extends Component {
   constructor(props) {
@@ -82,10 +86,19 @@ class Movie extends Component {
     }
 
     let title = this.state.movie.title;
-    let poster = `https://image.tmdb.org/t/p/w300/${this.state.movie.poster_path}`;
-    let releaseDate = getUSReleaseDate(this.state.movie.release_dates.results, this.state.movie.release_date);
+    let poster = `https://image.tmdb.org/t/p/w300${this.state.movie.poster_path}`;
+    let releaseDateData = new ReleaseDate(this.state.movie.release_dates.results, this.state.movie.release_date);
+    let releaseDate = releaseDateData.getUSReleaseDate();
+    let rating = releaseDateData.getUSRating();
     let overview = this.state.movie.overview;
     let runtime = this.state.movie.runtime;
+    if (runtime === 0) {
+      runtime = "N/A";
+    }
+    else {
+      runtime += " minutes";
+    }
+
     let genres = this.state.movie.genres.map((genre, index) => {
       let output = genre.name;
       if (index !== this.state.movie.genres.length - 1) {
@@ -93,6 +106,8 @@ class Movie extends Component {
       }
       return output;
     });
+
+    if (genres.length === 0) { genres = "N/A"; }
 
     let watchedBtnIcon;
     let toWatchBtnIcon;
@@ -111,18 +126,46 @@ class Movie extends Component {
 
 
     return (
-      <div className="col-12 text-center" id="movie-div">
-        <div id="movie-btns-div">
+      <div className="row text-center justify-content-center" id="movie-div">
+        <div className="col-12" id="movie-btns-div">
           <button type="button" className="btn btn-secondary" onClick={this.markAsToWatch}>{toWatchBtnIcon} To Watch</button>
           {" "}
           <button type="button" className="btn btn-secondary" onClick={this.markAsWatched}>{watchedBtnIcon} Watched</button>
         </div>
-        <img src={poster} alt="movie poster" />
-        <h2 className="text-center">{title}</h2>
-        <p>{overview}</p>
-        <p>Release Date: {releaseDate}</p>
-        <p>Runtime: {runtime} minutes</p>
-        <p>Genres: {genres}</p>
+        <div className="col-12">
+          <img src={poster} alt="movie poster" />
+        </div>
+        <div className="col-12">
+          <h2 className="text-center">{title}</h2>
+        </div>
+        <div className="col-12 col-md-8">
+          <p>{overview}</p>
+        </div>
+        <div className="w-100"></div>
+        <div className="col-md-12 col-lg-auto order-lg-2">
+          <Badge className="movie-info-box">
+            <h6 className="movie-info-box-title">Genres</h6>
+            <h6 className="movie-info-box-body">{genres}</h6>
+          </Badge>
+        </div>
+        <div className="col-auto col-md-auto ml-auto order-md-1 movie-info-outer">
+          <Badge className="movie-info-box">
+            <h6 className="movie-info-box-title">Release Date</h6>
+            <h6 className="movie-info-box-body">{releaseDate}</h6>
+          </Badge>
+        </div>
+        <div className="col-auto col-md-auto order-md-3 movie-info-outer">
+          <Rating rating={rating} />
+        </div>
+        <div className="col-auto col-md-auto mr-auto order-md-4 movie-info-outer">
+          <Badge className="movie-info-box">
+            <h6 className="movie-info-box-title">Runtime</h6>
+            <h6 className="movie-info-box-body">{runtime}</h6>
+          </Badge>
+        </div>
+        <div className="w-100 order-md-4"></div>
+        <Cast castData={this.state.movie.credits.cast} />
+        <Trailers videos={this.state.movie.videos.results} />
       </div>
     );
   }

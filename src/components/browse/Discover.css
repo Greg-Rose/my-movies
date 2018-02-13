@@ -1,22 +1,60 @@
-#genres, #sort {
-  margin: auto;
-  min-width: 141px;
-  width: auto;
-}
-
 .sort-filter {
-  display: inline-block;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-bottom: 20px;
 }
 
 .sort-filter .form-control-label {
-  color: #950740;
+  color: #df0953;
   font-weight: 600;
 }
 
-.sort-filter .form-control {
+.Select {
+  width: 150px;
+}
+
+.Select.is-focused > .Select-control {
+  background-color: #950740;
+}
+
+.sort-filter .form-control,
+.sort-filter .Select-control,
+.Select.is-focused:not(.is-open) > .Select-control {
   background-color: #950740;
   border-color: #950740;
+  color: #fff;
+}
+
+.Select.has-value.Select--single > .Select-control .Select-value .Select-value-label,
+.Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
+  color: #fff;
+}
+
+.Select-arrow {
+  border-color: #fff transparent transparent;
+}
+
+.Select .Select-arrow-zone:hover > .Select-arrow {
+    border-top-color: #fff;
+}
+
+.Select.is-open > .Select-control .Select-arrow {
+  border-color: transparent transparent #fff;
+}
+
+.Select-control .Select-input:focus {
+  background: none;
+}
+
+.Select-option {
+  background-color: #950740;
+  color: #fff;
+}
+
+.Select-option.is-focused {
+  background-color: #aa0849;
+  color: #fff;
+}
+
+.Select-option.is-selected {
+  background-color: #aa0849;
   color: #fff;
 }
