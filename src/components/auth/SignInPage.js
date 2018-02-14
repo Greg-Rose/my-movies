@@ -3,6 +3,7 @@ import './SignInPage.css';
 import { Button, Form, FormGroup, Input, Alert } from 'reactstrap';
 import authApi from '../../api/authApi';
 import { NavLink } from 'react-router-dom';
+import hasEmptyValue from '../../helpers/helperFuncs';
 
 class SignInPage extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class SignInPage extends Component {
       password: this.state.password
     };
 
-    if (credentials.email.trim().length === 0 || credentials.password.trim().length === 0 ) {
+    if (hasEmptyValue(this.state)) {
       this.setState({ alert: "Email and password can't be blank" });
     }
     else {
@@ -45,7 +46,7 @@ class SignInPage extends Component {
     if(authApi.userSignedIn()) {
       this.props.history.replace('/');
     }
-    else if (this.state.email.trim().length >= 1 || this.state.password.trim().length >= 1) {
+    else if (!hasEmptyValue(this.state)) {
       this.setState({ alert: "Email and password are incorrect" });
     }
   }
@@ -57,6 +58,7 @@ class SignInPage extends Component {
           <Form id="sign-in-form" onSubmit={this.onSubmit}>
             <h2 className="text-center">Sign In</h2>
             <Alert color="danger" isOpen={!!this.state.alert}>{this.state.alert}</Alert>
+
             <FormGroup>
               <Input type="email" name="email" id="email" placeholder="Email" onChange={this.onChange} />
             </FormGroup>
