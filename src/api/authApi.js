@@ -29,7 +29,7 @@ class AuthApi {
       }
     }
     catch(err) {
-      return false;
+      return true;
     }
   }
 
