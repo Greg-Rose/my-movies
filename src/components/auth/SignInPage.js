@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import './SignInPage.css';
-import { Button, Form, FormGroup, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Alert } from 'reactstrap';
 import authApi from '../../api/authApi';
 import { NavLink } from 'react-router-dom';
+import hasEmptyValue from '../../helpers/helperFuncs';
 
 class SignInPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      alert: false,
+      email: '',
+      password: ''
+    };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -26,13 +32,22 @@ class SignInPage extends Component {
       password: this.state.password
     };
 
-    authApi.signIn(credentials)
-      .then(() => this.redirect());
+    if (hasEmptyValue(this.state)) {
+      this.setState({ alert: "Email and password can't be blank" });
+    }
+    else {
+      this.setState({ alert: false });
+      authApi.signIn(credentials)
+        .then(() => this.redirect());
+    }
   }
 
   redirect() {
     if(authApi.userSignedIn()) {
       this.props.history.replace('/');
+    }
+    else if (!hasEmptyValue(this.state)) {
+      this.setState({ alert: "Email and password are incorrect" });
     }
   }
 
@@ -42,6 +57,8 @@ class SignInPage extends Component {
         <div className="col col-sm-8 col-lg-4">
           <Form id="sign-in-form" onSubmit={this.onSubmit}>
             <h2 className="text-center">Sign In</h2>
+            <Alert color="danger" isOpen={!!this.state.alert}>{this.state.alert}</Alert>
+
             <FormGroup>
               <Input type="email" name="email" id="email" placeholder="Email" onChange={this.onChange} />
             </FormGroup>

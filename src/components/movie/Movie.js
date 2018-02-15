@@ -3,10 +3,9 @@ import './Movie.css';
 import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
 import ReleaseDate from '../../helpers/ReleaseDate';
-import { Badge } from 'reactstrap';
 import Cast from './Cast';
 import Trailers from './Trailers';
-import Rating from './Rating';
+import MovieInfoBox from './MovieInfoBox';
 
 class Movie extends Component {
   constructor(props) {
@@ -143,25 +142,16 @@ class Movie extends Component {
         </div>
         <div className="w-100"></div>
         <div className="col-md-12 col-lg-auto order-lg-2">
-          <Badge className="movie-info-box">
-            <h6 className="movie-info-box-title">Genres</h6>
-            <h6 className="movie-info-box-body">{genres}</h6>
-          </Badge>
+          <MovieInfoBox title="Genres" body={genres} />
         </div>
         <div className="col-auto col-md-auto ml-auto order-md-1 movie-info-outer">
-          <Badge className="movie-info-box">
-            <h6 className="movie-info-box-title">Release Date</h6>
-            <h6 className="movie-info-box-body">{releaseDate}</h6>
-          </Badge>
+          <MovieInfoBox title="Release Date" body={releaseDate} />
         </div>
         <div className="col-auto col-md-auto order-md-3 movie-info-outer">
-          <Rating rating={rating} />
+          <MovieInfoBox title="Rated" body={rating} />
         </div>
         <div className="col-auto col-md-auto mr-auto order-md-4 movie-info-outer">
-          <Badge className="movie-info-box">
-            <h6 className="movie-info-box-title">Runtime</h6>
-            <h6 className="movie-info-box-body">{runtime}</h6>
-          </Badge>
+          <MovieInfoBox title="Runtime" body={runtime} />
         </div>
         <div className="w-100 order-md-4"></div>
         <Cast castData={this.state.movie.credits.cast} />

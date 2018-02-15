@@ -27,30 +27,6 @@
   }
 }
 
-.movie-info-box {
-  background: none;
-  display: block;
-  margin-bottom: 20px;
-  padding: 0;
-  white-space: normal;
-}
-
-.movie-info-box-title {
-  background-color: #a70740;
-  border-radius: 5px 5px 0 0;
-  margin: 0;
-  padding: 10px;
-  padding-bottom: 5px;
-}
-
-.movie-info-box-body {
-  background-color: #534b4e;
-  border-radius: 0 0 5px 5px;
-  margin-bottom: 0;
-  padding: 10px;
-  padding-bottom: 10px;
-}
-
 .btn-arrow {
   border-color: #fff transparent transparent;
   border-style: solid;

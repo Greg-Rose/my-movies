@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import './SignInPage.css';
-import { Button, Form, FormGroup, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Alert } from 'reactstrap';
 import authApi from '../../api/authApi';
 import { NavLink } from 'react-router-dom';
-
+import hasEmptyValue from '../../helpers/helperFuncs';
 
 class SignUpPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      alert: false,
+      first_name: '',
+      last_name: '',
+      email: '',
+      password: '',
+      password_confirmation: ''
+    };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -30,13 +38,22 @@ class SignUpPage extends Component {
       password_confirmation: this.state.password_confirmation
     };
 
-    authApi.signUp(credentials)
-      .then(() => this.redirect());
+    if (hasEmptyValue(this.state)) {
+      this.setState({ alert: "Please fill out all fields" });
+    }
+    else {
+      this.setState({ alert: false });
+      authApi.signUp(credentials)
+        .then(() => this.redirect());
+    }
   }
 
   redirect() {
     if(authApi.userSignedIn()) {
       this.props.history.replace('/');
+    }
+    else if (!hasEmptyValue(this.state)) {
+      this.setState({ alert: "Email already in use" });
     }
   }
 
@@ -46,6 +63,7 @@ class SignUpPage extends Component {
         <div className="col col-sm-8 col-lg-4">
           <Form id="sign-up-form" onSubmit={this.onSubmit}>
             <h2 className="text-center">Sign Up</h2>
+            <Alert color="danger" isOpen={!!this.state.alert}>{this.state.alert}</Alert>
 
             <FormGroup>
               <Input type="text" name="first_name" id="first_name" placeholder="First Name" onChange={this.onChange} />
