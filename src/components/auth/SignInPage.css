@@ -1,23 +1,24 @@
-#sign-in-form, #sign-up-form {
+#sign-in-form, #sign-up-form, #my-account-form {
   color: #fff;
   background-color: #6f2232;
   border-radius: 10px;
   margin-top: 40px;
+  margin-bottom: 40px;
   padding: 30px;
 }
 
-#sign-in-form h2, #sign-up-form h2 {
+#sign-in-form h2, #sign-up-form h2, #my-account-form h2 {
   margin-bottom: 20px;
 }
 
-#sign-in-form input, #sign-up-form input {
+#sign-in-form input, #sign-up-form input, #my-account-form input {
   border-color: #7c8c9c;
 }
 
-#sign-in-form button, #sign-up-form button {
+#sign-in-form button, #sign-up-form button, #my-account-form button {
   margin-bottom: 10px;
 }
 
-#sign-in-form a, #sign-up-form a {
+#sign-in-form a, #sign-up-form a, #my-account-form a {
   color: #fff;
 }
