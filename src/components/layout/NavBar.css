@@ -39,3 +39,7 @@
   -webkit-box-shadow: 0 0 0 0.1rem #950740;
   box-shadow: 0 0 0 0.1rem #950740;
 }
+
+#my-account-link {
+  display: inline-block;
+}

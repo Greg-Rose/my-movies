@@ -60,6 +60,9 @@ class NavBar extends Component {
           </Nav>
           <Nav className="ml-auto" navbar>
             <NavItem>
+              <NavLink to="/my_account" id="my-account-link" className="nav-link">My Account</NavLink>
+            </NavItem>
+            <NavItem>
               <a className="nav-link" id="sign-out-link" onClick={this.handleSignOut.bind(this)}>Sign Out</a>
             </NavItem>
           </Nav>
