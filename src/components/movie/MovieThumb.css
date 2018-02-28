@@ -37,6 +37,12 @@
   text-shadow: none;
 }
 
+@media (min-width: 1025px) {
+  .movie-modal .modal-header .close {
+    margin: -1rem 25% -1rem auto;
+  }
+}
+
 .movie-modal .modal-header .close:hover {
   opacity: .75;
 }
