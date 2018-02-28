@@ -9,9 +9,14 @@ class GetMyMovies extends Component {
     this.state = {
       movies: null
     };
+    this.getMovies = this.getMovies.bind(this);
   }
 
   componentDidMount() {
+    this.getMovies();
+  }
+
+  getMovies() {
     let setMovies = (response) => {
       this.setState({ movies: response });
     };
@@ -28,6 +33,7 @@ class GetMyMovies extends Component {
           key={movieData.id}
           data={movieData}
           tmdbId={movieData.tmdb_id}
+          updateMyMovies={this.getMovies}
         />
       )
     })

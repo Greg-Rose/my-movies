@@ -16,23 +16,17 @@ class Movie extends Component {
     this.setMyMovieStatus = this.setMyMovieStatus.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.location.state === undefined) {
-      console.log(this.props.location.state);
-      this.props.history.replace('/');
-    }
-    else {
-      let setMovie = (response) => {
-        this.setState({
-          movie: response,
-          watched: response.watched,
-          to_watch: response.to_watch,
-          my_movie_id: response.my_movie_id
-        });
-      };
+  componentWillMount() {
+    let setMovie = (response) => {
+      this.setState({
+        movie: response,
+        watched: response.watched,
+        to_watch: response.to_watch,
+        my_movie_id: response.my_movie_id
+      });
+    };
 
-      ApiRequest.get('/movies/find/' + this.props.location.state.id, setMovie);
-    }
+    ApiRequest.get('/movies/find/' + this.props.id, setMovie);
   }
 
   handleClick(watched, toWatch) {
@@ -80,7 +74,7 @@ class Movie extends Component {
   }
 
   render() {
-    if (this.props.location.state === undefined || this.state === null) {
+    if (this.state === null) {
       return <Spinner />;
     }
 

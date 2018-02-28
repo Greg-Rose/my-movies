@@ -4,3 +4,32 @@
   margin-bottom: 30px;
   max-width: 156px;
 }
+
+.movie-modal .modal-dialog {
+  margin: 0;
+  max-width: 100%;
+}
+
+.movie-modal .modal-content {
+  background-color: #1a1a1d;
+  border: none;
+  min-height: 100vh;
+}
+
+.movie-modal .modal-header {
+  border: none;
+}
+
+.movie-modal .modal-header .close {
+  color: #f40b68;
+  opacity: 1;
+  text-shadow: none;
+}
+
+.movie-modal .modal-header .close:hover {
+  opacity: .75;
+}
+
+.movie-modal .modal-body {
+  padding: 0;
+}

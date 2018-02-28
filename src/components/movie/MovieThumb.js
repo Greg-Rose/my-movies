@@ -1,9 +1,30 @@
 import React, { Component } from 'react';
 import './MovieThumb.css';
-import { Card, CardImg } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Card, CardImg, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import Movie from './Movie';
 
 class MovieThumb extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false
+    };
+    this.refreshMyMovies = this.refreshMyMovies.bind(this);
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
+
+  refreshMyMovies() {
+    if (this.props.hasOwnProperty('updateMyMovies')) {
+      this.props.updateMyMovies();
+    }
+  }
+
   render() {
     if (this.props.data.poster_path === null) { return null; }
 
@@ -12,11 +33,17 @@ class MovieThumb extends Component {
 
     return (
       <div className="col-6 col-md-4 col-lg-3">
-        <Card className="mx-auto movie-card">
-          <Link to={{ pathname: "/movie", state: { id: id } }}>
-            <CardImg top src={poster} />
-          </Link>
+        <Card className="mx-auto movie-card" onClick={this.toggle}>
+          <CardImg top src={poster} />
         </Card>
+        <Modal modalClassName="movie-modal" isOpen={this.state.modal} toggle={this.toggle} onClosed={this.refreshMyMovies}>
+          <ModalHeader toggle={this.toggle} />
+          <ModalBody>
+            <div className="container">
+              <Movie id={id} />
+            </div>
+          </ModalBody>
+        </Modal>
       </div>
     );
   }

@@ -8,10 +8,6 @@ import './Search.css';
 class Search extends Component {
   constructor() {
     super();
-    this.state = {
-      movies: [],
-      page: 1
-    };
     this.setMovies = this.setMovies.bind(this);
     this.nextPage = this.nextPage.bind(this);
   }
@@ -26,9 +22,12 @@ class Search extends Component {
     });
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.location.state !== undefined) {
       ApiRequest.get('/movies/search?query=' + this.props.location.state.query, this.setMovies);
+    }
+    else {
+      this.props.history.replace('/');
     }
   }
 
@@ -56,7 +55,18 @@ class Search extends Component {
   }
 
   render() {
-    if (this.state.movies.length === 0) { return <Spinner />; }
+    if (this.state === null) {
+      return <Spinner />;
+    }
+    else if (this.state.movies.length === 0) {
+      return (
+        <div className="row text-center" id="search-results">
+          <div className="col">
+            <h6>No movies were found that match your search.</h6>
+          </div>
+        </div>
+      )
+    }
 
     let preventDuplicates = [];
 
