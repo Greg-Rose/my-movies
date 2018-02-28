@@ -31,7 +31,9 @@
 
 .movie-modal .modal-header .close {
   color: #f40b68;
+  font-size: 2rem;
   opacity: 1;
+  padding: .5rem 1rem;
   text-shadow: none;
 }
 
