@@ -18,7 +18,6 @@ class Movie extends Component {
 
   componentDidMount() {
     if (this.props.location.state === undefined) {
-      console.log(this.props.location.state);
       this.props.history.replace('/');
     }
     else {
