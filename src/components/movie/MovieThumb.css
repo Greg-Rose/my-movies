@@ -5,7 +5,12 @@
   max-width: 156px;
 }
 
+.thumb-img {
+  cursor: pointer;
+}
+
 .movie-modal {
+  position: static;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -26,8 +31,16 @@
 
 .movie-modal .modal-header .close {
   color: #f40b68;
+  font-size: 2rem;
   opacity: 1;
+  padding: .5rem 1rem;
   text-shadow: none;
+}
+
+@media (min-width: 1025px) {
+  .movie-modal .modal-header .close {
+    margin: -1rem 25% -1rem auto;
+  }
 }
 
 .movie-modal .modal-header .close:hover {
@@ -36,4 +49,19 @@
 
 .movie-modal .modal-body {
   padding: 0;
+}
+
+.modal-open {
+  height: 100%;
+  overflow: visible;
+}
+
+.modal-open #root {
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}
+
+.modal-backdrop {
+  position: static;
 }
