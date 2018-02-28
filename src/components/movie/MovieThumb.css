@@ -8,6 +8,7 @@
 .movie-modal .modal-dialog {
   margin: 0;
   max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .movie-modal .modal-content {
