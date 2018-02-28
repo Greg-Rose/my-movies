@@ -51,7 +51,7 @@ class MovieThumb extends Component {
     return (
       <div className="col-6 col-md-4 col-lg-3">
         <Card className="mx-auto movie-card" onClick={this.onModalOpen}>
-          <CardImg top src={poster} />
+          <CardImg top src={poster} className="thumb-img" />
         </Card>
         <Modal modalClassName="movie-modal" isOpen={this.state.modal} toggle={this.toggle} onClosed={this.onModalClose}>
           <ModalHeader toggle={this.toggle} />

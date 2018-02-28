@@ -5,6 +5,10 @@
   max-width: 156px;
 }
 
+.thumb-img {
+  cursor: pointer;
+}
+
 .movie-modal {
   position: static;
   -webkit-overflow-scrolling: touch;
