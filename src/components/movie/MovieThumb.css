@@ -6,6 +6,7 @@
 }
 
 .movie-modal {
+  position: static;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -36,4 +37,19 @@
 
 .movie-modal .modal-body {
   padding: 0;
+}
+
+.modal-open {
+  height: 100%;
+  overflow: visible;
+}
+
+.modal-open #root {
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}
+
+.modal-backdrop {
+  position: static;
 }
