@@ -12,6 +12,10 @@
   margin-bottom: 20px;
 }
 
+#movie-btns-div .btn.btn-secondary {
+  margin: 0 5px;
+}
+
 #movie-div .fa-plus {
   color: #9fdf9f;
 }

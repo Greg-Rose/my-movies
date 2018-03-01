@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ApiRequest from '../../api/apiRequest';
-import { Button, Form, FormGroup, Input, Alert } from 'reactstrap';
+import { Row, Col, Button, Form, FormGroup, Input, Alert } from 'reactstrap';
 
 
 class Account extends Component {
@@ -79,8 +79,8 @@ class Account extends Component {
 
   render() {
     return (
-      <div className="row justify-content-center">
-        <div className="col col-sm-8 col-lg-4">
+      <Row className="justify-content-center">
+        <Col xs sm="8" lg="4">
           <Form id="my-account-form" onSubmit={this.onSubmit}>
             <h2 className="text-center">Update Account</h2>
             <Alert color={this.state.alert.color} isOpen={this.state.alert.active}>{this.state.alert.message}</Alert>
@@ -111,8 +111,8 @@ class Account extends Component {
 
             <Button block>Update</Button>
           </Form>
-        </div>
-      </div>
+        </Col>
+      </Row>
     );
   }
 }

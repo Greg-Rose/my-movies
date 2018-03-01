@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Row, Col, Button } from 'reactstrap';
 import './Movie.css';
 import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
@@ -119,38 +120,37 @@ class Movie extends Component {
 
 
     return (
-      <div className="row text-center justify-content-center" id="movie-div">
-        <div className="col-12" id="movie-btns-div">
-          <button type="button" className="btn btn-secondary" onClick={this.markAsToWatch}>{toWatchBtnIcon} To Watch</button>
-          {" "}
-          <button type="button" className="btn btn-secondary" onClick={this.markAsWatched}>{watchedBtnIcon} Watched</button>
-        </div>
-        <div className="col-12">
+      <Row className="text-center justify-content-center" id="movie-div">
+        <Col xs="12" id="movie-btns-div">
+          <Button color="secondary" onClick={this.markAsToWatch}>{toWatchBtnIcon} To Watch</Button>
+          <Button color="secondary" onClick={this.markAsWatched}>{watchedBtnIcon} Watched</Button>
+        </Col>
+        <Col xs="12">
           <img src={poster} alt="movie poster" />
-        </div>
-        <div className="col-12">
+        </Col>
+        <Col xs="12">
           <h2 className="text-center">{title}</h2>
-        </div>
-        <div className="col-12 col-md-8">
+        </Col>
+        <Col xs="12" md="8">
           <p>{overview}</p>
-        </div>
+        </Col>
         <div className="w-100"></div>
-        <div className="col-md-12 col-lg-auto order-lg-2">
+        <Col xs="12" md="12" lg="auto" className="order-lg-2">
           <MovieInfoBox title="Genres" body={genres} />
-        </div>
-        <div className="col-auto col-md-auto ml-auto order-md-1 movie-info-outer">
+        </Col>
+        <Col xs="auto" md="auto" className="ml-auto order-md-1 movie-info-outer">
           <MovieInfoBox title="Release Date" body={releaseDate} />
-        </div>
-        <div className="col-auto col-md-auto order-md-3 movie-info-outer">
+        </Col>
+        <Col xs="auto" md="auto" className="order-md-3 movie-info-outer">
           <MovieInfoBox title="Rated" body={rating} />
-        </div>
-        <div className="col-auto col-md-auto mr-auto order-md-4 movie-info-outer">
+        </Col>
+        <Col xs="auto" md="auto" className="mr-auto order-md-4 movie-info-outer">
           <MovieInfoBox title="Runtime" body={runtime} />
-        </div>
+        </Col>
         <div className="w-100 order-md-4"></div>
         <Cast castData={this.state.movie.credits.cast} />
         <Trailers videos={this.state.movie.videos.results} />
-      </div>
+      </Row>
     );
   }
 }

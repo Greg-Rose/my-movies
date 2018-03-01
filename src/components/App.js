@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container } from 'reactstrap';
 import './App.css';
 import SignInPage from './auth/SignInPage';
 import SignUpPage from './auth/SignUpPage';
@@ -13,7 +14,7 @@ import Account from './user/Account';
 class App extends Component {
   render() {
     return (
-      <div className="container">
+      <Container>
         <Switch>
           <Route exact path="/sign_in" component={SignInPage} />
           <Route exact path="/sign_up" component={SignUpPage} />
@@ -23,7 +24,7 @@ class App extends Component {
           <Route exact path='/my_account' component={Account} />
           <Route component={NoMatch} />
         </Switch>
-      </div>
+      </Container>
     );
   }
 }

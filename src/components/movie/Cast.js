@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Collapse, Button } from 'reactstrap';
+import { Row, Col, Collapse, Button } from 'reactstrap';
 import './Cast.css';
 
 class Cast extends Component {
@@ -10,7 +10,7 @@ class Cast extends Component {
     this.onExited = this.onExited.bind(this);
     this.state = {
       collapse: false,
-      divClass: "col-auto"
+      colSize: "auto"
     };
   }
 
@@ -19,13 +19,11 @@ class Cast extends Component {
   }
 
   onEntering() {
-    let className = "col-12";
-    this.setState({ divClass: className });
+    this.setState({ colSize: "12" });
   }
 
   onExited() {
-    let className = "col-auto";
-    this.setState({ divClass: className });
+    this.setState({ colSize: "auto" });
   }
 
   render() {
@@ -41,33 +39,33 @@ class Cast extends Component {
       }
 
       return (
-        <div key={index} className="col-12 col-md-4 cast-member-outer-div">
-          <div className="row align-items-center">
-            <div className="col-4 col-md-4 cast-img">
+        <Col key={index} xs="12" md="4" className="cast-member-outer-div">
+          <Row className="align-items-center">
+            <Col xs="4" md="4" className="cast-img">
               <img src={photo} alt="cast member" width="100" />
-            </div>
-            <div className="col-8 col-md-8 text-left cast-info">
+            </Col>
+            <Col xs="8" md="8" className="text-left cast-info">
               <h6>Actor</h6>
               <p className="cast-name">{member.name}</p>
               <h6>Character</h6>
               <p className="cast-character">{member.character}</p>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Col>
       );
     });
 
     let btnArrow = this.state.collapse ? "btn-arrow arrow-open" : "btn-arrow";
 
     return (
-      <div className={`${this.state.divClass} order-md-5`}>
+      <Col xs={this.state.colSize} className="order-md-5">
         <Button color="secondary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Cast <span className={btnArrow}></span></Button>
         <Collapse isOpen={this.state.collapse} onEntering={this.onEntering} onExited={this.onExited}>
-          <div className="row justify-content-center">
+          <Row className="justify-content-center">
             {cast}
-          </div>
+          </Row>
         </Collapse>
-      </div>
+      </Col>
     );
   }
 }
