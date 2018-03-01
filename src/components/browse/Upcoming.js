@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MovieThumb from '../movie/MovieThumb';
 import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
-import { Button } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 
 class Upcoming extends Component {
   constructor() {
@@ -60,17 +60,17 @@ class Upcoming extends Component {
     let loadMoreBtn;
     if (this.state.page < this.state.totalPages) {
       loadMoreBtn = (
-        <div className="col-12">
+        <Col xs="12">
           <Button color="secondary" onClick={this.nextPage} id="load-more-btn">More Movies</Button>
-        </div>
+        </Col>
       )
     }
 
     return (
-      <div className="row text-center">
+      <Row className="text-center">
         {movies}
         {loadMoreBtn}
-      </div>
+      </Row>
     );
   }
 }

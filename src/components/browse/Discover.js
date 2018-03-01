@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'react-select/dist/react-select.css';
 import './Discover.css';
 import MovieThumb from '../movie/MovieThumb';
-import { Label, Button } from 'reactstrap';
+import { Row, Col, Label, Button } from 'reactstrap';
 import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
 import Select from 'react-select';
@@ -95,9 +95,9 @@ class Discover extends Component {
     let loadMoreBtn;
     if (this.state.page < this.state.totalPages) {
       loadMoreBtn = (
-        <div className="col-12">
+        <Col xs="12">
           <Button color="secondary" onClick={this.nextPage} id="load-more-btn">More Movies</Button>
-        </div>
+        </Col>
       )
     }
 
@@ -108,8 +108,8 @@ class Discover extends Component {
   	const sortValue = sortBy && sortBy.value;
 
     return (
-      <div className="row text-center">
-        <div className="col-auto sort-filter ml-auto">
+      <Row className="text-center">
+        <Col xs="auto" className="sort-filter ml-auto">
           <Label for="genres">Genres</Label>
           <Select
             name="select"
@@ -119,8 +119,8 @@ class Discover extends Component {
             clearable={false}
             searchable={false}
           />
-        </div>
-        <div className="col-auto sort-filter mr-auto">
+        </Col>
+        <Col xs="auto" className="sort-filter mr-auto">
           <Label for="sort">Sort</Label>
           <Select
             name="select"
@@ -130,11 +130,11 @@ class Discover extends Component {
             clearable={false}
             searchable={false}
           />
-        </div>
+        </Col>
         <div className="w-100"></div>
         {movies}
         {loadMoreBtn}
-      </div>
+      </Row>
     );
   }
 }

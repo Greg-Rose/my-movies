@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Collapse, Button } from 'reactstrap';
+import { Row, Col, Collapse, Button } from 'reactstrap';
 import './Trailers.css';
 
 class Trailers extends Component {
@@ -10,7 +10,7 @@ class Trailers extends Component {
     this.onExited = this.onExited.bind(this);
     this.state = {
       collapse: false,
-      divClass: "col-auto"
+      colSize: "auto"
     };
   }
 
@@ -19,13 +19,11 @@ class Trailers extends Component {
   }
 
   onEntering() {
-    let className = "col-12";
-    this.setState({ divClass: className });
+    this.setState({ colSize: "12" });
   }
 
   onExited() {
-    let className = "col-auto";
-    this.setState({ divClass: className });
+    this.setState({ colSize: "auto" });
   }
 
   render() {
@@ -33,7 +31,7 @@ class Trailers extends Component {
       if (video.type !== "Trailer" || video.site !== "YouTube") { return null; }
 
       return (
-        <div key={index} className="col-12 col-md-6">
+        <Col key={index} xs="12" md="6">
           <div className="trailer-div embed-responsive embed-responsive-16by9">
             <iframe
               className="embed-responsive-item"
@@ -42,7 +40,7 @@ class Trailers extends Component {
               allowFullScreen>
             </iframe>
           </div>
-        </div>
+        </Col>
       );
     });
 
@@ -51,14 +49,14 @@ class Trailers extends Component {
     let btnArrow = this.state.collapse ? "btn-arrow arrow-open" : "btn-arrow";
 
     return (
-      <div className={`${this.state.divClass} order-md-6`}>
+      <Col xs={this.state.colSize} className="order-md-6">
         <Button color="secondary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Trailers <span className={btnArrow}></span></Button>
         <Collapse isOpen={this.state.collapse} onEntering={this.onEntering} onExited={this.onExited}>
-          <div className="row justify-content-center">
+          <Row className="justify-content-center">
             {trailers}
-          </div>
+          </Row>
         </Collapse>
-      </div>
+      </Col>
     );
   }
 }

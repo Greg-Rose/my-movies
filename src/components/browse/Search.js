@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MovieThumb from '../movie/MovieThumb';
 import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
-import { Button } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 import './Search.css';
 
 class Search extends Component {
@@ -60,11 +60,11 @@ class Search extends Component {
     }
     else if (this.state.movies.length === 0) {
       return (
-        <div className="row text-center" id="search-results">
-          <div className="col">
+        <Row className="text-center" id="search-results">
+          <Col>
             <h6>No movies were found that match your search.</h6>
-          </div>
-        </div>
+          </Col>
+        </Row>
       )
     }
 
@@ -83,17 +83,17 @@ class Search extends Component {
     let loadMoreBtn;
     if (this.state.page < this.state.totalPages) {
       loadMoreBtn = (
-        <div className="col-12">
+        <Col xs="12">
           <Button color="secondary" onClick={this.nextPage} id="load-more-btn">More Movies</Button>
-        </div>
+        </Col>
       )
     }
 
     return (
-      <div className="row text-center" id="search-results">
+      <Row className="text-center" id="search-results">
         {movies}
         {loadMoreBtn}
-      </div>
+      </Row>
     );
   }
 }

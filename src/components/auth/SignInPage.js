@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './SignInPage.css';
-import { Button, Form, FormGroup, Input, Alert } from 'reactstrap';
+import { Row, Col, Button, Form, FormGroup, Input, Alert } from 'reactstrap';
 import authApi from '../../api/authApi';
 import { NavLink } from 'react-router-dom';
 import hasEmptyValue from '../../helpers/helperFuncs';
@@ -53,8 +53,8 @@ class SignInPage extends Component {
 
   render() {
     return (
-      <div className="row justify-content-center">
-        <div className="col col-sm-8 col-lg-4">
+      <Row className="justify-content-center">
+        <Col sm="8" lg="4">
           <Form id="sign-in-form" onSubmit={this.onSubmit}>
             <h2 className="text-center">Sign In</h2>
             <Alert color="danger" isOpen={!!this.state.alert}>{this.state.alert}</Alert>
@@ -71,8 +71,8 @@ class SignInPage extends Component {
 
             <NavLink to="/sign_up">Sign Up</NavLink>
           </Form>
-        </div>
-      </div>
+        </Col>
+      </Row>
     );
   }
 }

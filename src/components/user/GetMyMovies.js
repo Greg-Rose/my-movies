@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Row, Col } from 'reactstrap';
 import MovieThumb from '../movie/MovieThumb';
 import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
@@ -41,16 +42,16 @@ class GetMyMovies extends Component {
     if (movies.length === 0) {
       let message = `Mark movies as "${this.props.name}" and they'll show up here.`;
       movies = (
-        <div className="col text-center">
+        <Col className="text-center">
           <p className="my-movies-message">{message}</p>
-        </div>
+        </Col>
       );
     }
 
     return (
-      <div className="row">
+      <Row>
         {movies}
-      </div>
+      </Row>
     );
   }
 }

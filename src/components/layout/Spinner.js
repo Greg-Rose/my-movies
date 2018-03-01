@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import { Row, Col } from 'reactstrap';
 import './Spinner.css';
 
 class Spinner extends Component {
   render() {
     return (
-      <div className="row text-center">
-        <div className="col">
+      <Row className="text-center">
+        <Col>
           <i className="fa fa-spinner" aria-hidden="true"></i>
-        </div>
-      </div>
+        </Col>
+      </Row>
     )
   }
 }
