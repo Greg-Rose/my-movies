@@ -54,7 +54,7 @@ class SignInPage extends Component {
   render() {
     return (
       <Row className="justify-content-center">
-        <Col sm="8" lg="4">
+        <Col xs sm="8" lg="4">
           <Form id="sign-in-form" onSubmit={this.onSubmit}>
             <h2 className="text-center">Sign In</h2>
             <Alert color="danger" isOpen={!!this.state.alert}>{this.state.alert}</Alert>

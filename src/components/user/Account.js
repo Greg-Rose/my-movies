@@ -80,7 +80,7 @@ class Account extends Component {
   render() {
     return (
       <Row className="justify-content-center">
-        <Col sm="8" lg="4">
+        <Col xs sm="8" lg="4">
           <Form id="my-account-form" onSubmit={this.onSubmit}>
             <h2 className="text-center">Update Account</h2>
             <Alert color={this.state.alert.color} isOpen={this.state.alert.active}>{this.state.alert.message}</Alert>
