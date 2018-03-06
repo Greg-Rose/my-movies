@@ -35,7 +35,7 @@ describe('ApiRequest', () => {
     expect(returnedData.data).toEqual("test");
   });
 
-  it("post() makes post request via fetch", async () => {
+  it("post() makes post request via fetch with provided headers", async () => {
     global.fetch = jest.fn().mockImplementation(() => {
           let response = new Promise((resolve, reject) => {
             resolve({
@@ -62,6 +62,34 @@ describe('ApiRequest', () => {
       returnedData = response;
       called = true;
     }, headers);
+
+    expect(called).toEqual(true);
+    expect(returnedData.data).toEqual("movie added");
+  });
+
+  it("post() makes post request via fetch without provided headers", async () => {
+    global.fetch = jest.fn().mockImplementation(() => {
+          let response = new Promise((resolve, reject) => {
+            resolve({
+              ok: true,
+              json: function() {
+                return { data: 'movie added', };
+              }
+            });
+          });
+
+          return response;
+      });
+
+    let called = false;
+    let returnedData;
+
+    let data = {movie: "test"};
+
+    let post = await ApiRequest.post("/test", data, (response) => {
+      returnedData = response;
+      called = true;
+    });
 
     expect(called).toEqual(true);
     expect(returnedData.data).toEqual("movie added");

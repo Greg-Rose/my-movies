@@ -1,8 +1,9 @@
-import { API_ROOT } from './apiConfig';
+import ApiRoot from './apiConfig';
 import authApi from './authApi';
 
 class ApiRequest {
   static request(endpoint, method, data, responseFunc, headers = null) {
+    let baseURL = ApiRoot();
     let body = null;
 
     if (data !== null) {
@@ -17,7 +18,7 @@ class ApiRequest {
     }
 
     return (
-      fetch(API_ROOT + endpoint, {
+      fetch(baseURL + endpoint, {
         method: method,
         headers: headers,
         body: body

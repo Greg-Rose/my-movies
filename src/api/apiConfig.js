@@ -1,10 +1,14 @@
-let backendHost;
-const hostname = window && window.location && window.location.hostname;
+const ApiRoot = () => {
+  let backendHost;
+  let hostname = window && window.location && window.location.hostname;
 
-if(hostname === 'mymovielist.surge.sh') {
-  backendHost = 'https://mymovies-api.herokuapp.com';
-} else {
-  backendHost = 'http://localhost:3000';
-}
+  if(hostname === 'mymovielist.surge.sh') {
+    backendHost = 'https://mymovies-api.herokuapp.com';
+  } else {
+    backendHost = 'http://localhost:3000';
+  }
 
-export const API_ROOT = backendHost;
+  return backendHost;
+};
+
+export default ApiRoot;

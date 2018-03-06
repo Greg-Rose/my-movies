@@ -6,6 +6,8 @@ import ApiRequest from '../../api/apiRequest';
 import Cast from './Cast';
 import Trailers from './Trailers';
 import MovieInfoBox from './MovieInfoBox';
+import { createMemoryHistory } from 'history';
+import Spinner from '../layout/Spinner';
 
 describe('<Movie />', () => {
   let wrapper;
@@ -92,6 +94,32 @@ describe('<Movie />', () => {
     expect(wrapper.find(Trailers).length).toEqual(1);
   });
 
+  it("should render genres as N/A if no genres are returned", () => {
+    const ApiRequestGetSpy = jest.spyOn(ApiRequest, 'get')
+      .mockImplementation((path, responseFunc) => {
+        let response = {
+          watched: true,
+          to_watch: false,
+          my_movie_id: 1,
+          title: "movie title",
+          release_date: "2017/12/3",
+          runtime: 120,
+          id: 1234,
+          poster_path: "path",
+          release_dates: { results: [1, 2] },
+          genres: [],
+          overview: "summary",
+          credits: { cast: [] },
+          videos: { results: [] }
+        };
+
+        return responseFunc(response);
+      });
+
+    wrapper = shallow(<Movie id="1234" />);
+    expect(wrapper.find(MovieInfoBox).first().props().body).toEqual("N/A");
+  });
+
   it('setMyMovieStatus() should set state', () => {
     let data = {
       watched: false,
@@ -165,4 +193,18 @@ describe('<Movie />', () => {
 
     expect(wrapper.find(MovieInfoBox).last().html().includes("N/A")).toEqual(true);
   });
+
+  it('shows Spinner while state is null', () => {
+    const ApiRequestGetSpy = jest.spyOn(ApiRequest, 'get')
+      .mockImplementation((path, responseFunc) => {
+
+      });
+
+    const history = createMemoryHistory('/search');
+    let location = {state: undefined};
+    wrapper = mount(<Movie history={history} location={location} />);
+    expect(wrapper.find(Spinner).exists()).toEqual(true);
+  });
+
+
 });
