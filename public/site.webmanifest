@@ -1,6 +1,6 @@
 {
-    "name": "MyMovies",
-    "short_name": "MyMovies",
+    "name": "My Movies",
+    "short_name": "My Movies",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#6f2232",
-    "background_color": "#6f2232",
+    "theme_color": "#c3073f",
+    "background_color": "#c3073f",
     "display": "standalone"
 }
