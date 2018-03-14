@@ -13,6 +13,7 @@ class MovieThumb extends Component {
     this.onModalOpen = this.onModalOpen.bind(this);
     this.onModalClose = this.onModalClose.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.checkIfDeleted = this.checkIfDeleted.bind(this);
   }
 
   toggle() {
@@ -37,9 +38,13 @@ class MovieThumb extends Component {
     }, 1);
 
     // refresh My Movies
-    if (this.props.hasOwnProperty('updateMyMovies')) {
-      this.props.updateMyMovies();
+    if (this.props.hasOwnProperty('removeMovie') && this.state.remove) {
+      this.props.removeMovie(this.props.id);
     }
+  }
+
+  checkIfDeleted(result) {
+    this.setState({ remove: result });
   }
 
   render() {
@@ -48,8 +53,13 @@ class MovieThumb extends Component {
     let poster = `https://image.tmdb.org/t/p/w154/${this.props.data.poster_path}`;
     let id = this.props.tmdbId;
 
+    let myMoviesCheck = null;
+    if (this.props.hasOwnProperty('removeMovie')) {
+      myMoviesCheck = this.checkIfDeleted;
+    }
+
     return (
-      <Col xs="6" md="4" lg="3">
+      <Col xs="6" md="4" lg="3" id={this.props.id}>
         <Card className="mx-auto movie-card" onClick={this.onModalOpen}>
           <CardImg top src={poster} className="thumb-img" />
         </Card>
@@ -57,7 +67,7 @@ class MovieThumb extends Component {
           <ModalHeader toggle={this.toggle} />
           <ModalBody>
             <Container>
-              <Movie id={id} />
+              <Movie id={id} myMoviesCheck={myMoviesCheck} type={this.props.type} />
             </Container>
           </ModalBody>
         </Modal>

@@ -52,8 +52,24 @@ describe('<MovieThumb />', () => {
     expect(document.documentElement.scrollTop).toEqual(60);
   });
 
+  it('onModalClose() calls props function if state.remove is true', () => {
+    let propsFn = jest.fn();
+    const wrapper = shallow(<MovieThumb data={{poster_path: "path"}} tmdbId={1} removeMovie={propsFn} />);
+    wrapper.setState({remove: true})
+    wrapper.instance().onModalClose();
+    expect(propsFn).toHaveBeenCalled();
+  });
+
   it('should render null if poster path is null', () => {
     let wrapper = shallow(<MovieThumb data={{poster_path: null}} tmdbId={1} />);
     expect(wrapper.type()).toEqual(null);
+  });
+
+  it('checkIfDeleted sets state of remove', () => {
+    let wrapper = shallow(<MovieThumb data={{poster_path: "path"}} tmdbId={1} />);
+    wrapper.instance().checkIfDeleted(true);
+    expect(wrapper.instance().state.remove).toEqual(true);
+    wrapper.instance().checkIfDeleted(false);
+    expect(wrapper.instance().state.remove).toEqual(false);
   });
 });
