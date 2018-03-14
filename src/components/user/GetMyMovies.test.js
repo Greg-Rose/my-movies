@@ -10,12 +10,21 @@ describe('<GetMyMovies />', () => {
     const ApiRequestGetSpy = jest.spyOn(ApiRequest, 'get')
       .mockImplementation((path, responseFunc) => {
         // Data is the parameter our method would normally recieve
-        let response = [
-          {
-            id: 1,
-            tmdb_id: 1
-          }
-        ];
+        let response;
+        if (!path.includes("&page")) {
+          response = {
+            page: 1,
+            total_pages: 10,
+            movies: [{ id: 1, tmdb_id: 1 }]
+          };
+        }
+        else {
+          response = {
+            page: 2,
+            total_pages: 10,
+            movies: [{ id: 2, tmdb_id: 2 }, { id: 3, tmdb_id: 3 }]
+          };
+        }
 
         return responseFunc(response);
       });
@@ -35,7 +44,7 @@ describe('<GetMyMovies />', () => {
     const ApiRequestGetSpy = jest.spyOn(ApiRequest, 'get')
       .mockImplementation((path, responseFunc) => {
         // Data is the parameter our method would normally recieve
-        return responseFunc([]);
+        return responseFunc({ movies: [] });
       });
 
     let wrapper = shallow(<GetMyMovies path="watched" name={"\"Watched\""} />);
@@ -43,5 +52,30 @@ describe('<GetMyMovies />', () => {
     expect(wrapper.find(Col).exists()).toEqual(true);
     expect(wrapper.find("p.my-movies-message").text()).toEqual("Mark movies as \"\"Watched\"\" and they'll show up here.");
     expect(wrapper.find(MovieThumb).exists()).toEqual(false);
+  });
+
+  it('nextPage() should set state', () => {
+    let wrapper = shallow(<GetMyMovies path="watched" />);
+    wrapper.instance().nextPage();
+    expect(wrapper.instance().state.page).toEqual(2);
+    expect(wrapper.instance().state.movies).toEqual([{ id: 1, tmdb_id: 1 }, { id: 2, tmdb_id: 2 }, { id: 3, tmdb_id: 3 }]);
+  });
+
+  it('nextPage() does nothing if current page + 1 > totalPages', () => {
+    let wrapper = shallow(<GetMyMovies path="watched" />);
+    wrapper.instance().setState({page: 10});
+    wrapper.instance().nextPage();
+    expect(wrapper.instance().state.page).toEqual(10);
+    expect(wrapper.instance().state.movies).toEqual([{ id: 1, tmdb_id: 1 }]);
+  });
+
+  it('removeMovie() calls remove() on movie element id', () => {
+    const getElementByIdSpy = jest.spyOn(document, 'getElementById')
+      .mockImplementation(() => {
+        return { remove: () => null };
+      });
+    let wrapper = shallow(<GetMyMovies path="watched" />);
+    wrapper.instance().removeMovie("1");
+    expect(getElementByIdSpy).toHaveBeenCalled();
   });
 });

@@ -165,11 +165,35 @@ describe('<Movie />', () => {
     expect(wrapper.instance().state.to_watch).toEqual(true);
   });
 
+  it('markAsToWatch calls props function if type is To Watch', () => {
+    let propsFn = jest.fn();
+    wrapper = shallow(<Movie id="1234" type="To Watch" myMoviesCheck={propsFn} />);
+    wrapper.instance().markAsToWatch();
+
+    expect(propsFn).toHaveBeenCalled();
+  });
+
   it('markAsWatched toggles state.watched via handleClick', () => {
     wrapper.instance().markAsWatched();
 
     expect(wrapper.instance().state.watched).toEqual(false);
     expect(wrapper.instance().state.to_watch).toEqual(false);
+  });
+
+  it('markAsWatched calls props function if type is Watched', () => {
+    let propsFn = jest.fn();
+    wrapper = shallow(<Movie id="1234" type="Watched" myMoviesCheck={propsFn} />);
+    wrapper.instance().markAsWatched();
+
+    expect(propsFn).toHaveBeenCalled();
+  });
+
+  it('markAsWatched calls props function if type is To Watch', () => {
+    let propsFn = jest.fn();
+    wrapper = shallow(<Movie id="1234" type="To Watch" myMoviesCheck={propsFn} />);
+    wrapper.instance().markAsWatched();
+
+    expect(propsFn).toHaveBeenCalled();
   });
 
   it('runtime set to N/A if given 0', () => {

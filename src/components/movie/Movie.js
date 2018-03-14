@@ -67,10 +67,21 @@ class Movie extends Component {
   }
 
   markAsWatched() {
+    if (this.props.type === "Watched") {
+      this.props.myMoviesCheck(this.state.watched);
+    }
+    else if (this.props.type === "To Watch") {
+      this.props.myMoviesCheck(!this.state.watched);
+    }
+
     this.handleClick(!this.state.watched, this.state.to_watch);
   }
 
   markAsToWatch() {
+    if (this.props.type === "To Watch") {
+      this.props.myMoviesCheck(this.state.to_watch);
+    }
+
     this.handleClick(this.state.watched, !this.state.to_watch);
   }
 

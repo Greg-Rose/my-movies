@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 import MovieThumb from '../movie/MovieThumb';
 import ApiRequest from '../../api/apiRequest';
 import Spinner from '../layout/Spinner';
@@ -11,6 +11,8 @@ class GetMyMovies extends Component {
       movies: null
     };
     this.getMovies = this.getMovies.bind(this);
+    this.setMovies = this.setMovies.bind(this);
+    this.nextPage = this.nextPage.bind(this);
   }
 
   componentDidMount() {
@@ -18,11 +20,34 @@ class GetMyMovies extends Component {
   }
 
   getMovies() {
-    let setMovies = (response) => {
-      this.setState({ movies: response });
-    };
+    ApiRequest.get('/' + this.props.path, this.setMovies);
+  }
 
-    ApiRequest.get('/' + this.props.path, setMovies);
+  setMovies(response) {
+    let movies = response.movies;
+    if (response.page > 1) { movies = [...this.state.movies, ...response.movies]; }
+    this.setState({
+      movies: movies,
+      page: response.page,
+      totalPages: response.total_pages
+    });
+  }
+
+  nextPage() {
+    let newPage = this.state.page + 1;
+    if (newPage <= this.state.totalPages) {
+      this.setState({ page: newPage }, () => this.updateMovies());
+    }
+  }
+
+  updateMovies() {
+    let page = '&page=' + this.state.page;
+
+    ApiRequest.get('/' + this.props.path + '?' + page, this.setMovies);
+  }
+
+  removeMovie(id) {
+    document.getElementById(id).remove();
   }
 
   render() {
@@ -34,7 +59,9 @@ class GetMyMovies extends Component {
           key={movieData.id}
           data={movieData}
           tmdbId={movieData.tmdb_id}
-          updateMyMovies={this.getMovies}
+          type={this.props.name}
+          removeMovie={this.removeMovie}
+          id={movieData.id}
         />
       )
     })
@@ -48,9 +75,19 @@ class GetMyMovies extends Component {
       );
     }
 
+    let loadMoreBtn;
+    if (this.state.page < this.state.totalPages) {
+      loadMoreBtn = (
+        <Col xs="12">
+          <Button color="secondary" onClick={this.nextPage} id="load-more-btn">More Movies</Button>
+        </Col>
+      )
+    }
+
     return (
-      <Row>
+      <Row className="text-center">
         {movies}
+        {loadMoreBtn}
       </Row>
     );
   }
