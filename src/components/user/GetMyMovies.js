@@ -13,6 +13,7 @@ class GetMyMovies extends Component {
     this.getMovies = this.getMovies.bind(this);
     this.setMovies = this.setMovies.bind(this);
     this.nextPage = this.nextPage.bind(this);
+    this.removeMovie = this.removeMovie.bind(this);
   }
 
   componentDidMount() {
@@ -47,7 +48,12 @@ class GetMyMovies extends Component {
   }
 
   removeMovie(id) {
-    document.getElementById(id).remove();
+    let movies = this.state.movies;
+    let index = movies.findIndex((element) => {
+      return element.id === id;
+    });
+    movies.splice(index, 1);
+    this.setState({ movies: movies });
   }
 
   render() {
